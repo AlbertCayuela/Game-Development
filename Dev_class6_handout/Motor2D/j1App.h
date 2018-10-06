@@ -80,7 +80,7 @@ public:
 	j1Window*			win;
 	j1Input*			input;
 	j1Render*			render;
-	j1Textures*			textures;
+	j1Textures*			tex;
 	j1Audio*			audio;
 	j1Scene*			scene;
 	j1Map*				map;

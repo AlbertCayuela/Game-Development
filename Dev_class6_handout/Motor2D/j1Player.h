@@ -2,36 +2,27 @@
 #define _j1Player_H_
 
 #include "j1Module.h"
-#include "Animation.h"
 #include "p2Point.h"
 
 struct SDL_Texture;
 struct Collider;
 
-class ModulePlayer : public j1Module
+class j1Player : public j1Module
 {
 public:
-	ModulePlayer();
-	~ModulePlayer();
+	j1Player();
+	~j1Player();
 
 	bool Start();
-	update_status Update();
+	bool Update();
 	bool CleanUp();
-	void OnCollision(Collider* c1, Collider* c2);
+	/*void OnCollision(Collider* c1, Collider* c2);*/
 
 public:
 
-	SDL_Texture * graphics = nullptr;
-	int font_score = -1;
-	char score_text[10];
-	uint score = 0;
-	Animation* current_animation = nullptr;
-	Animation idle;
-	Animation up;
-	Animation down;
+	SDL_Texture * graphics = nullptr;	
 	iPoint position;
-	Collider* col;
-	bool destroyed = false;
+	
 };
 
 #endif
