@@ -1,6 +1,7 @@
 #ifndef _j1Player_H_
 #define _j1Player_H_
 
+#include "Animation.h"
 #include "j1Module.h"
 #include "p2Point.h"
 
@@ -22,6 +23,8 @@ public:
 
 	SDL_Texture * graphics = nullptr;	
 	iPoint position;
+	Animation* current_animation;
+	Animation idle;
 	
 };
 

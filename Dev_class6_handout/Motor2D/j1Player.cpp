@@ -13,7 +13,7 @@
 
 j1Player::j1Player()
 {
-	
+	idle.PushBack({ 0,0,33,35 });
 }
 j1Player::~j1Player()
 {
@@ -24,10 +24,13 @@ bool j1Player::Start()
 {
 	LOG("Loading player");
 
+	graphics = App->tex->Load("maps/idle1.png");
 
 	
-	position.x = 150;
-	position.y = 120;
+
+	//destroyed=false;
+	position.x = 100;
+	position.y = 20;
 
 	return true;
 }
@@ -37,6 +40,7 @@ bool j1Player::CleanUp()
 {
 	LOG("Unloading player");
 
+	App->tex->UnLoad(graphics);
 
 	return true;
 }
@@ -44,29 +48,29 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update()
 {
-	position.x += 1; // Automatic movement
+	//position.x += 1; // Automatic movement
 
-	int speed = 1;
+	//int speed = 1;
 
-	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	{
-		
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	//{
+	//	
+	//}
 
-	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	{
-		position.x += speed;
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	//{
+	//	position.x += speed;
+	//}
 
-	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	{
-		
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
+	//{
+	//	
+	//}
 
-	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	{
-		
-	}
+	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
+	//{
+	//	
+	//}
 
 	
 /*
@@ -74,9 +78,11 @@ bool j1Player::Update()
 		&& App->input->GetKey[SDL_SCANCODE_W] == KEY_IDLE)
 		*/
 
-
+	current_animation = &idle;
 	// Draw everything --------------------------------------
 	
+	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+
 	// Draw UI (score) --------------------------------------
 
 	// TODO 3: Blit the text of the score in at the bottom of the screen
