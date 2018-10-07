@@ -26,8 +26,14 @@ public:
 	iPoint speed;
 	Animation* current_animation;
 	Animation idle;
-	Animation jump_attack;
-	
+	Animation jump_attack_right;
+	Animation jump_attack_left;
+	Animation walking_right;
+	Animation walking_left;
+	Animation attack_right;
+	Animation jump_right;
+	Animation jump_left;
+	Animation attack_left;
 
 	
 };

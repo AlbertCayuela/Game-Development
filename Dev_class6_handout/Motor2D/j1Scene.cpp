@@ -10,6 +10,8 @@
 #include "j1Scene.h"
 #include "j1Player.h"
 
+#define CAMERA_LEFT_MARGIN 100
+
 j1Scene::j1Scene() : j1Module()
 {
 	name.create("scene");
@@ -65,8 +67,14 @@ bool j1Scene::Update(float dt)
 
 	//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		//App->render->camera.x -= 1;
-
-	App->render->camera.x = App->player->position.x;
+	if (App->render->camera.x + CAMERA_LEFT_MARGIN > App->player->position.x)
+	{
+		App->render->camera.x = 0;
+	}
+	else
+	{
+		App->render->camera.x = (-App->player->position.x) + CAMERA_LEFT_MARGIN;
+	}
 	App->render->camera.y = (-App->player->position.y)+650;
 
 	App->map->Draw();
