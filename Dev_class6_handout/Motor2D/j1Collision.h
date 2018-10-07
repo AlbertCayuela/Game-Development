@@ -6,6 +6,7 @@
 #include "j1Module.h"
 #include "p2Log.h"
 
+
 #include "SDL/include/SDL.h"
 #include "SDL_image/include/SDL_image.h"
 #pragma comment( lib, "SDL_image/libx86/SDL2_image.lib" )
@@ -56,14 +57,14 @@ public:
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type);
 
-	void DebugDraw();
+	
 
 private:
 
-	Collider * collider[MAX_COLLIDERS];
+	Collider * colliders[MAX_COLLIDERS];
 	bool matrix[COLLIDER_MAX][COLLIDER_MAX];
 	bool debug = false;
 };
 
 
-#endif // _j1COLLISION_H_
+#endif // !_j1COLLISION_H_
