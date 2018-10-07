@@ -14,10 +14,22 @@
 j1Player::j1Player()
 {
 	name.create("player");
-	idle.PushBack({ 29,17,36,38 });
-	idle.PushBack({ 89,17,36,38 });
-	idle.speed = 1.0f;
+
+	//idle
+	idle.PushBack({17,69,35,37});
+	idle.PushBack({78,69,35,37});
+	idle.PushBack({139,69,35,37});
+	idle.PushBack({198,69,35,37});
+	idle.speed = 0.05f;
 	idle.loop = true;
+
+	//attack while jumping
+	jump_attack.PushBack({16,10,39,39});
+	jump_attack.PushBack({75,10,37,39});
+	jump_attack.PushBack({134,10,46,39});
+	jump_attack.PushBack({195,10,38,39});
+	jump_attack.speed = 0.1f;
+	jump_attack.loop = true;
 }
 j1Player::~j1Player()
 {
@@ -28,7 +40,7 @@ bool j1Player::Start()
 {
 	LOG("Loading player");
 
-	graphics = App->tex->Load("maps/try.png");
+	graphics = App->tex->Load("maps/spritesheet.png");
 
 	
 

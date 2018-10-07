@@ -26,6 +26,9 @@ public:
 	iPoint speed;
 	Animation* current_animation;
 	Animation idle;
+	Animation jump_attack;
+	
+
 	
 };
 
