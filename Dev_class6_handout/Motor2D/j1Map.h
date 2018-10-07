@@ -7,31 +7,32 @@
 #include "j1Module.h"
 
 // ----------------------------------------------------
-struct MapLayer
-{
-	p2SString	name;
-	int			width;
-	int			height;
-	uint*		data;
+enum LayerType {
+	LAYER_NONE = -1,
+	LAYER_MAINGROUND,
+	LAYER_BACKGROUND,
 
-	MapLayer() : data(NULL)
-	{}
 
-	~MapLayer()
-	{
-		RELEASE(data);
+
+};
+struct MapLayer {
+	p2SString name;
+	uint width = 0u;
+	uint height = 0u;
+	uint* data = nullptr;
+	LayerType type = LAYER_NONE;
+
+	~MapLayer() {
+		if (data != nullptr) // Si ponemos != NULL, llamamos a RELEASE. Sino podemos != nullptr y hacer delete
+			delete[] data;
 	}
-
-	// TODO 6 (old): Short function to get the value of x,y
-	inline uint Get(int x, int y) const 
-	{
-		return data[width*y + x];
-	}
+	inline uint Get(int x, int y) const;
 };
 
 // ----------------------------------------------------
 struct TileSet
 {
+	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -105,7 +106,7 @@ private:
 public:
 
 	MapData data;
-	MapLayer layer_data;
+	//MapLayer layer_data;
 
 private:
 

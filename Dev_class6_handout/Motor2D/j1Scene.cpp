@@ -33,7 +33,7 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("maps/dirt_map.tmx");
+	App->map->Load("maps/Cave_map.tmx");
 	//App->map->Load("iso.tmx");
 	
 	return true;
@@ -75,7 +75,7 @@ bool j1Scene::Update(float dt)
 	{
 		App->render->camera.x = (-App->player->position.x) + CAMERA_LEFT_MARGIN;
 	}
-	App->render->camera.y = (-App->player->position.y)+650;
+	App->render->camera.y = (-App->player->position.y)+660;
 
 	App->map->Draw();
 
