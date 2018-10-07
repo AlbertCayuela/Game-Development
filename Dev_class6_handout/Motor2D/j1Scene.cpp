@@ -8,6 +8,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Player.h"
 
 j1Scene::j1Scene() : j1Module()
 {
@@ -51,17 +52,20 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		App->render->camera.y += 1;
+	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		//App->render->camera.y += 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		App->render->camera.y -= 1;
+	//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		//App->render->camera.y -= 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		App->render->camera.x += 1;
+	//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		//App->render->camera.x += 1;
 
-	if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		App->render->camera.x -= 1;
+	//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		//App->render->camera.x -= 1;
+
+	App->render->camera.x = App->player->position.x;
+	App->render->camera.y = (-App->player->position.y)+650;
 
 	App->map->Draw();
 

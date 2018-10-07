@@ -13,7 +13,11 @@
 
 j1Player::j1Player()
 {
-	idle.PushBack({ 0,0,33,35 });
+	name.create("player");
+	idle.PushBack({ 29,17,36,38 });
+	idle.PushBack({ 89,17,36,38 });
+	idle.speed = 1.0f;
+	idle.loop = true;
 }
 j1Player::~j1Player()
 {
@@ -24,13 +28,13 @@ bool j1Player::Start()
 {
 	LOG("Loading player");
 
-	graphics = App->tex->Load("maps/idle1.png");
+	graphics = App->tex->Load("maps/try.png");
 
 	
 
 	//destroyed=false;
-	position.x = 100;
-	position.y = 20;
+	position.x = 0;
+	position.y = 839;
 
 	return true;
 }
@@ -46,9 +50,9 @@ bool j1Player::CleanUp()
 }
 
 // Update: draw background
-bool j1Player::Update()
+bool j1Player::Update(float dt)
 {
-	//position.x += 1; // Automatic movement
+	//position.y += 1; // Automatic movement
 
 	//int speed = 1;
 
