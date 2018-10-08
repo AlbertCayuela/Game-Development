@@ -59,6 +59,16 @@ void j1Map::Draw()
 					else if (itemlayer->data->type == LAYER_BACKGROUND) {
 						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
 					}
+					else if (itemlayer->data->type == LAYER_MAINGROUND2) {
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
+					}
+					else if (itemlayer->data->type == LAYER_BACKGROUND2) {
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
+					}
+					else if (itemlayer->data->type == LAYER_BACKGROUNDMOUNT) {
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
+					}
+					
 				}
 
 			}
@@ -386,10 +396,19 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 
 	layer->name = node.attribute("name").as_string();
+
 	if (layer->name == "MAINGROUND")
 		layer->type = LAYER_MAINGROUND;
 	else if (layer->name == "fondo")
 		layer->type = LAYER_BACKGROUND;
+	else if (layer->name == "MAINGROUNDDIRT")
+		layer->type = LAYER_MAINGROUND2;
+	else if (layer->name == "BACKGROUNDMOUNT")
+		layer->type = LAYER_BACKGROUNDMOUNT;
+	else if (layer->name == "BACKGROUNDIRT")
+		layer->type = LAYER_BACKGROUND2;
+	
+
 
 
 	layer->width = node.attribute("width").as_uint();
