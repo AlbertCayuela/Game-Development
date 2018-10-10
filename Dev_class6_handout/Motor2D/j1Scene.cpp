@@ -75,7 +75,7 @@ bool j1Scene::Update(float dt)
 	{
 		App->render->camera.x = (-App->player->position.x) + CAMERA_LEFT_MARGIN;
 	}
-	App->render->camera.y = (-App->player->position.y)+660;
+	App->render->camera.y = (-App->player->position.y)-200;
 
 	App->map->Draw();
 

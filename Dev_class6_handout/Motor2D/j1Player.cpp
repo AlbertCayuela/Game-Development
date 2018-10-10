@@ -123,7 +123,7 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
 	{
 
-		position.x +=1;
+		position.x +=3;
 		current_animation = &walking_right;
 
 	}
@@ -131,7 +131,7 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 
-		position.x -= 1;
+		position.x -= 3;
 		current_animation = &walking_left;
 
 	}
