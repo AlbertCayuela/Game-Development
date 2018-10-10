@@ -33,7 +33,11 @@ bool j1Scene::Awake()
 // Called before the first frame
 bool j1Scene::Start()
 {
-	App->map->Load("maps/dirt_map.tmx");
+	
+
+	App->map->Load("maps/Cave_map.tmx");
+	currentmap = 1;
+	
 	//App->map->Load("iso.tmx");
 	
 	return true;
@@ -54,8 +58,20 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame("save_game.xml");
 
-	
+	/*if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		if (currentmap == 1) {
+			App->map->CleanUp();
+			App->map->Load("maps/Cave_map.tmx");
+			currentmap = 2;
+		}
+		else if (currentmap == 2) {
+			App->map->CleanUp();
+			App->map->Load("maps/dirt_map.tmx");
+			currentmap = 1;
+		}
 
+	}*/
 	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		//App->render->camera.y += 1;
 
@@ -97,7 +113,7 @@ bool j1Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
 	return ret;
