@@ -89,7 +89,7 @@ bool j1Scene::Update(float dt)
 	}
 	else
 	{
-		App->render->camera.x = (-App->player->position.x) + CAMERA_LEFT_MARGIN;
+		App->render->camera.x = ((-App->player->position.x) + CAMERA_LEFT_MARGIN)*App->win->GetScale();
 	}
 	App->render->camera.y = (-App->player->position.y)-200;
 
