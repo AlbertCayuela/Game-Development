@@ -98,6 +98,7 @@ public:
 	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
+	void drawcollisions(pugi::xml_node &node);
 
 private:
 

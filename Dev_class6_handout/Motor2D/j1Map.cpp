@@ -5,6 +5,7 @@
 #include "j1Textures.h"
 #include "j1Map.h"
 #include <math.h>
+#include "j1Collisions.h"
 
 j1Map::j1Map() : j1Module(), map_loaded(false)
 {
@@ -228,6 +229,12 @@ bool j1Map::Load(const char* file_name)
 			data.maplayers.add(lay);
 	}
 
+	pugi::xml_node colnode=map_file.child("map").child("objectgroup");
+
+	drawcollisions(colnode);
+
+
+
 	if(ret == true)
 	{
 		LOG("Successfully parsed map XML file: %s", file_name);
@@ -428,4 +435,21 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 inline uint MapLayer::Get(int x, int y) const {
 
 	return data[width * y + x];
+}
+void j1Map::drawcollisions(pugi::xml_node &node) {
+
+	for (pugi::xml_node col = node.child("object"); col; col = col.next_sibling("object")) {
+		SDL_Rect collision;
+		p2SString checkcol;
+		checkcol = col.attribute("name").as_string();
+		collision.x = col.attribute("x").as_uint();
+		collision.y = col.attribute("y").as_uint();
+		collision.h = col.attribute("height").as_uint();
+		collision.w = col.attribute("width").as_uint();
+
+		App->collision->AddCollider(collision, COLLIDER_FLOOR);
+	}
+
+
+
 }
