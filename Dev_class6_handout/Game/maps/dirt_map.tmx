@@ -491,7 +491,7 @@
   <tile id="575" terrain="0,0,0,0"/>
  </tileset>
  <tileset firstgid="865" name="2015-02-26 [DB32](Generic Platformer)(Mountains)1" tilewidth="16" tileheight="16" tilecount="576" columns="32">
-  <image source="2015-02-26 [DB32](Generic Platformer)(Mountains)1.png" width="512" height="288"/>
+  <image source="2015-02-26 [DB32](Generic Platformer)(Mountains).png" width="512" height="288"/>
  </tileset>
  <layer name="BACKGROUNDIRT" width="200" height="60" offsetx="-76" offsety="238">
   <data>

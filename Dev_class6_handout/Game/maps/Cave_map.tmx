@@ -6,7 +6,7 @@
  <tileset firstgid="145" name="tileset5" tilewidth="16" tileheight="16" tilecount="81" columns="9">
   <image source="tilescave.png" trans="5fcde4" width="153" height="148"/>
  </tileset>
- <layer name="fondo" width="200" height="60" offsetx="-44" offsety="294">
+ <layer name="fondo" width="200" height="60" offsetx="-45.39" offsety="291.76">
   <data>
    <tile gid="223"/>
    <tile gid="223"/>
@@ -12010,7 +12010,7 @@
    <tile gid="223"/>
   </data>
  </layer>
- <layer name="MAINGROUND" width="200" height="60" offsetx="-43.1515" offsety="292.121">
+ <layer name="MAINGROUND" width="200" height="60" offsetx="-45.39" offsety="291.76">
   <data>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -24015,12 +24015,12 @@
   </data>
  </layer>
  <objectgroup name="Collisions" offsetx="-45.3939" offsety="291.758">
-  <object id="28" name="floor" x="-3.0303" y="400" width="45.4545" height="569.697"/>
-  <object id="31" name="floor" x="48.3939" y="850.242" width="125" height="114"/>
-  <object id="35" name="floor" x="98.3939" y="576.742" width="76.5" height="94.5"/>
-  <object id="36" name="floor" x="175.894" y="608.742" width="15.5" height="62"/>
-  <object id="37" name="floor" x="193.894" y="640.742" width="13.5" height="29"/>
-  <object id="38" name="floor" x="210.394" y="656.242" width="13" height="17"/>
-  <object id="39" name="floor" x="258.394" y="690.242" width="47.5" height="14.5"/>
+  <object id="28" name="floor" x="-2.0303" y="351" width="45.4545" height="569.697"/>
+  <object id="31" name="floor" x="51.3939" y="847.242" width="125" height="114"/>
+  <object id="35" name="floor" x="99.3939" y="527.742" width="76.5" height="94.5"/>
+  <object id="36" name="floor" x="176.894" y="559.742" width="15.5" height="62"/>
+  <object id="37" name="floor" x="194.894" y="591.742" width="13.5" height="29"/>
+  <object id="38" name="floor" x="211.394" y="607.242" width="13" height="17"/>
+  <object id="39" name="floor" x="259.394" y="641.242" width="47.5" height="14.5"/>
  </objectgroup>
 </map>

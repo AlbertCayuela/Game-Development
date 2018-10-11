@@ -73,14 +73,14 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		if (debug == false) debug = true;
 		else debug = false;
 		LOG("Showing Colliders ");
 	}
 
 	if (debug == false)
-		return;
+		return;*/
 
 	Uint8 alpha = 80;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
