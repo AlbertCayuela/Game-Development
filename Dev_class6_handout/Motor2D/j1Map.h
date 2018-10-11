@@ -16,7 +16,6 @@ enum LayerType {
 	LAYER_BACKGROUNDMOUNT,
 	
 
-
 };
 struct MapLayer {
 	p2SString name;

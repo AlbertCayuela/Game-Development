@@ -54,7 +54,7 @@ void j1Map::Draw()
 					iPoint coordd = MapToWorld(x, y);
 
 					if (itemlayer->data->type == LAYER_MAINGROUND) {
-						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.1f);
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
 
 					}
 					else if (itemlayer->data->type == LAYER_BACKGROUND) {
@@ -414,7 +414,6 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 		layer->type = LAYER_BACKGROUNDMOUNT;
 	else if (layer->name == "BACKGROUNDIRT")
 		layer->type = LAYER_BACKGROUND2;
-	
 
 
 
@@ -447,9 +446,12 @@ void j1Map::drawcollisions(pugi::xml_node &node) {
 		collision.h = col.attribute("height").as_uint();
 		collision.w = col.attribute("width").as_uint();
 
-		App->collision->AddCollider(collision, COLLIDER_FLOOR);
-	}
+		if (checkcol == "floor")
+			App->collision->AddCollider(collision, COLLIDER_FLOOR);
+	
+	if (checkcol == "death")
+		App->collision->AddCollider(collision, COLLIDER_DEATH);
 
-
+}
 
 }
