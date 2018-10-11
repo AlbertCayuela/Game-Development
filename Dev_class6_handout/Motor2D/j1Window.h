@@ -9,6 +9,8 @@ struct SDL_Surface;
 class j1Window : public j1Module
 {
 public:
+	uint		width;
+	uint		height;
 
 	j1Window();
 
@@ -39,8 +41,7 @@ public:
 
 private:
 	p2SString	title;
-	uint		width;
-	uint		height;
+	
 	uint		scale;
 };
 
