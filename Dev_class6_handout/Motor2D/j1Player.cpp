@@ -97,11 +97,12 @@ bool j1Player::Start()
 	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
 
 	//destroyed=false;
-	position.x = 0;
-	position.y = 839;
+	position.x = 50;
+	position.y = 600;
 
 	//player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER,this);
-
+	speed.x = 3;
+	speed.y = 3;
 	return true;
 }
 
@@ -120,19 +121,19 @@ bool j1Player::CleanUp()
 bool j1Player::Update(float dt)
 {
 	
+	prev_pos = position;
 	
-	
-	//position.y += 1; // Automatic movement
+	position.y += speed.y; // Automatic movement
 	
 
-	int speed = 1;
+	 
 
 	current_animation = &idle;
 
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
 	{
 
-		position.x +=3;
+		position.x += speed.x;
 		current_animation = &walking_right;
 
 	}
@@ -140,7 +141,7 @@ bool j1Player::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 
-		position.x -= 3;
+		position.x -= speed.x;
 		current_animation = &walking_left;
 
 	}
@@ -169,14 +170,12 @@ bool j1Player::Update(float dt)
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	
-	if (c1 == player_col)
-	{
+	
+	
 
-
-		switch (c2->type)
+		if (c2->type == COLLIDER_FLOOR)
 		{
-		case COLLIDER_FLOOR:
-
+			position = prev_pos;
 		}
-	}
+	
 }

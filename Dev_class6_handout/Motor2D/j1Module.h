@@ -9,7 +9,9 @@
 #include "p2SString.h"
 #include "PugiXml\src\pugixml.hpp"
 
+
 class j1App;
+struct Collider;
 
 class j1Module
 {
@@ -91,6 +93,8 @@ public:
 	}
 
 	bool IsEnabled() const { return enabled; }
+
+	void OnCollision(Collider* c1, Collider* c2) {}
 
 public:
 

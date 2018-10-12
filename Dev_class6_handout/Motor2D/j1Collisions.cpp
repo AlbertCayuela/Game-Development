@@ -5,6 +5,7 @@
 #include "j1Module.h"
 #include "p2Log.h"
 #include "j1FadeToBlack.h"
+#include "j1Player.h"
 
 j1Collisions::j1Collisions()
 {
@@ -49,36 +50,8 @@ bool j1Collisions::PreUpdate()
 		}
 	}
 
-	//// Calculate collisions
-	//Collider* c1;
-	//Collider* c2;
-
-	//for (uint i = 0; i < MAX_COLLIDERS; ++i)
-	//{
-	//	// skip empty colliders
-	//	if (colliders[i] == nullptr)
-	//		continue;
-
-	//	c1 = colliders[i];
-
-	//	// avoid checking collisions already checked
-	//	//for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
-	//	//{
-	//	//	// skip empty colliders
-	//	//	if (colliders[k] == nullptr)
-	//	//		continue;
-
-	//	//	c2 = colliders[k];
-
-	//	//	if (c1->CheckCollision(c2->rect) == true)
-	//	//	{
-	//	//		if (matrix[c1->type][c2->type] && c1->callback)
-	//	//			c1->callback->OnCollision(c1, c2);
-	//	//		if (matrix[c2->type][c1->type] && c2->callback)
-	//	//			c2->callback->OnCollision(c2, c1);
-	//	//	}
-	///*	}
-	//}
+	
+	
 
 	return true;
 }
@@ -86,9 +59,43 @@ bool j1Collisions::PreUpdate()
 // Called before render is available
 bool j1Collisions::Update(float dt)
 {
+	// Calculate collisions
+	Collider* c1;
+	Collider* c2;
+
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		// skip empty colliders
+		if (colliders[i] == nullptr)
+			continue;
+
+		c1 = colliders[i];
+
+		// avoid checking collisions already checked
+		for (uint k = i + 1; k < MAX_COLLIDERS; ++k)
+		{
+			// skip empty colliders
+			if (colliders[k] == nullptr)
+				continue;
+
+			c2 = colliders[k];
+
+			if (c1->CheckCollision(c2->rect) == true)
+			{
+				if (matrix[c1->type][c2->type] && c1->callback)
+					c1->callback->OnCollision(c1, c2);
+
+				if (matrix[c2->type][c1->type] && c2->callback)
+					c2->callback->OnCollision(c2, c1);
+			}
+		}
+	}
 
 	DebugDraw();
+
 	return true;
+
+	
 }
 
 void j1Collisions::DebugDraw()
