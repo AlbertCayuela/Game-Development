@@ -231,6 +231,7 @@ bool j1Map::Load(const char* file_name)
 
 	pugi::xml_node colnode=map_file.child("map").child("objectgroup");
 
+
 	drawcollisions(colnode);
 
 
@@ -455,3 +456,5 @@ void j1Map::drawcollisions(pugi::xml_node &node) {
 }
 
 }
+
+

@@ -10,6 +10,7 @@
 #include "j1Window.h"
 #include "j1Map.h"
 #include "j1Scene.h"
+#include "j1Collisions.h"
 
 j1Player::j1Player()
 {
@@ -92,11 +93,14 @@ bool j1Player::Start()
 
 	graphics = App->tex->Load("maps/spritesheet.png");
 
-	
+
+	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
 
 	//destroyed=false;
 	position.x = 0;
 	position.y = 839;
+
+	//player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER,this);
 
 	return true;
 }
@@ -107,6 +111,7 @@ bool j1Player::CleanUp()
 	LOG("Unloading player");
 
 	App->tex->UnLoad(graphics);
+	App->collision->EraseCollider(player_col);
 
 	return true;
 }
@@ -114,7 +119,11 @@ bool j1Player::CleanUp()
 // Update: draw background
 bool j1Player::Update(float dt)
 {
+	
+	
+	
 	//position.y += 1; // Automatic movement
+	
 
 	int speed = 1;
 
@@ -142,33 +151,9 @@ bool j1Player::Update(float dt)
 	}
 	
 	
-	
 
-	//if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-	//{
-	//	
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-	//{
-	//	position.x += speed;
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-	//{
-	//	
-	//}
-
-	//if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-	//{
-	//	
-	//}
-
-	
-/*
-	if (App->input->GetKey[SDL_SCANCODE_S] == KEY_IDLE
-		&& App->input->GetKey[SDL_SCANCODE_W] == KEY_IDLE)
-		*/
+	player_col->SetPos(position.x, position.y);
+	App->render->DrawQuad(player_col->rect, 255 , 0, 0);
 
 	//current_animation = &walking_right;
 	// Draw everything --------------------------------------
@@ -182,9 +167,16 @@ bool j1Player::Update(float dt)
 	return true;
 }
 
-//void ModulePlayer::OnCollision(Collider* c1, Collider* c2)
-//{
-//	if (c1 == col && destroyed == false && App->fade->IsFading() == false)
-//	{
+void j1Player::OnCollision(Collider* c1, Collider* c2)
+{	
+	if (c1 == player_col)
+	{
 
-//	}
+
+		switch (c2->type)
+		{
+		case COLLIDER_FLOOR:
+
+		}
+	}
+}

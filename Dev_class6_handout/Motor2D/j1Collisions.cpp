@@ -8,10 +8,29 @@
 
 j1Collisions::j1Collisions()
 {
-	for (uint i = 0; i < MAX_COLLIDERS; ++i)
-		colliders[i] = nullptr;
+	//for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		//colliders[i] = nullptr;
+	name.create("collisions");
 
-	
+	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_MAX] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_MAX] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_MAX][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_MAX][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_MAX][COLLIDER_MAX] = false;
+	matrix[COLLIDER_MAX][COLLIDER_PLAYER] = true;
+
+	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_MAX] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 }
 
 // Destructor
@@ -137,6 +156,21 @@ Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module*
 	}
 
 	return ret;
+}
+
+bool j1Collisions::EraseCollider(Collider * collider)
+{
+	if (collider != nullptr) 
+	{
+		for (uint i = 0; i < MAX_COLLIDERS; i++) 
+		{
+			collider->to_delete = true;
+			break;
+
+		}
+	}
+
+	return false;
 }
 
 // -----------------------------------------------------

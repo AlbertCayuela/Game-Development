@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "j1Module.h"
 #include "p2Point.h"
+#include "j1Collisions.h"
 
 struct SDL_Texture;
 //struct Collider;
@@ -17,11 +18,12 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-	/*void OnCollision(Collider* c1, Collider* c2);*/
+	void OnCollision(Collider* c1, Collider* c2);
 
 public:
 
 	SDL_Texture * graphics = nullptr;	
+	SDL_Rect player_rect;
 	iPoint position;
 	iPoint speed;
 	Animation* current_animation;
@@ -34,6 +36,8 @@ public:
 	Animation jump_right;
 	Animation jump_left;
 	Animation attack_left;
+	Collider* player_col=nullptr;
+	bool destroyed = false;
 
 	
 };

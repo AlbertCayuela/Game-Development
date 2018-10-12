@@ -12,7 +12,7 @@ enum COLLIDER_TYPE
 
 	COLLIDER_FLOOR,
 	COLLIDER_DEATH,
-	
+	COLLIDER_PLAYER,
 
 
 	COLLIDER_MAX
@@ -53,6 +53,7 @@ public:
 	bool CleanUp() override;
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
+	bool EraseCollider(Collider* collider);
 	void DebugDraw();
 
 private:
