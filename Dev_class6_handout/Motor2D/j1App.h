@@ -15,6 +15,7 @@ class j1Audio;
 class j1Scene;
 class j1Map;
 class j1Collisions;
+class j1FadeToBlack;
 
 class j1App
 {

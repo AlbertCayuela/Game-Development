@@ -4,6 +4,7 @@
 #include "j1Input.h"
 #include "j1Module.h"
 #include "p2Log.h"
+#include "j1FadeToBlack.h"
 
 j1Collisions::j1Collisions()
 {
