@@ -149,7 +149,19 @@ bool j1Collisions::CleanUp()
 
 	return true;
 }
+bool j1Collisions::ColliderCleanUp()
+{
 
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+	{
+		if (colliders[i] != nullptr && colliders[i]->type != COLLIDER_PLAYER)
+		{
+			delete colliders[i];
+			colliders[i] = nullptr;
+		}
+	}
+	return true;
+}
 Collider* j1Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback)
 {
 	Collider* ret = nullptr;

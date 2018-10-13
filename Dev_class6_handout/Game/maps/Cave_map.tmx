@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="60" tilewidth="16" tileheight="16" nextobjectid="131">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="60" tilewidth="16" tileheight="16" nextobjectid="132">
  <tileset firstgid="1" name="Tileset4" tilewidth="16" tileheight="16" tilecount="144" columns="16">
   <image source="2015-02-26 [DB32](Generic Platformer)(Tileset).png" trans="5fcde4" width="256" height="144"/>
  </tileset>
@@ -24092,6 +24092,7 @@
   <object id="126" name="floor" x="2765.39" y="299.575" width="21.3333" height="94.6667"/>
   <object id="127" name="floor" x="2624.06" y="396.242" width="159.333" height="344"/>
   <object id="129" name="floor" x="1072.73" y="686.242" width="46.6667" height="14.6667"/>
-  <object id="130" name="player" x="55.3939" y="584.242" width="27" height="43"/>
+  <object id="130" name="start" x="55.3939" y="584.242" width="27" height="43"/>
+  <object id="131" name="end" x="2729.39" y="354.242" width="27" height="29"/>
  </objectgroup>
 </map>

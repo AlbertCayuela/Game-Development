@@ -15,7 +15,9 @@ j1Map::j1Map() : j1Module(), map_loaded(false)
 // Destructor
 j1Map::~j1Map()
 {}
-
+TileSet::~TileSet() {
+	App->tex->UnLoad(texture);
+}
 // Called before render is available
 bool j1Map::Awake(pugi::xml_node& config)
 {
@@ -55,7 +57,6 @@ void j1Map::Draw()
 
 					if (itemlayer->data->type == LAYER_MAINGROUND) {
 						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
-
 					}
 					else if (itemlayer->data->type == LAYER_BACKGROUND) {
 						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
@@ -163,8 +164,9 @@ void j1Map::loadcollision(pugi::xml_node &node) {
 
 		if (checkcol == "player")
 			App->collision->AddCollider(collision, COLLIDER_PLAYER);
-		if (checkcol == "start")
-			App->collision->AddCollider(collision, COLLIDER_START);
+
+		
+
 		if (checkcol == "end")
 			App->collision->AddCollider(collision, COLLIDER_END);
 
@@ -180,25 +182,27 @@ bool j1Map::CleanUp()
 	p2List_item<TileSet*>* item;
 	item = data.tilesets.start;
 
-	while(item != NULL)
+	while (item != NULL)
 	{
 		RELEASE(item->data);
 		item = item->next;
 	}
 	data.tilesets.clear();
 
-	// Remove all layers
-	p2List_item<MapLayer*>* item2;
-	item2 = data.maplayers.start;
 
-	while(item2 != NULL)
+	// Remove all layers
+
+	p2List_item<MapLayer*>* item_layer;
+	item_layer = data.maplayers.start;
+
+	while (item_layer != NULL)
 	{
-		RELEASE(item2->data);
-		item2 = item2->next;
+		RELEASE(item_layer->data);
+		item_layer = item_layer->next;
 	}
 	data.maplayers.clear();
 
-	// Clean up the pugui tree
+
 	map_file.reset();
 
 	return true;

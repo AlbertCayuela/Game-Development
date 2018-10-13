@@ -56,25 +56,73 @@ bool j1Scene::PreUpdate()
 bool j1Scene::Update(float dt)
 {
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame("save_game.xml");
+		App->LoadGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame("save_game.xml");
+		App->SaveGame();
 
-	/*if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+
+		if (currentmap == App->player->saved_map)
+			App->LoadGame();
+		else
+		{
+			switch (App->player->saved_map) {
+			case 1:
+				curr_map = MAP_1;
+				App->collision->ColliderCleanUp();
+				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+				App->map->CleanUp();
+				App->map->Load("maps/dirt_map.tmx");
+				App->player->player_pos.x = App->player->last_saved_pos.x;
+				App->player->player_pos.y = App->player->last_saved_pos.y;
+				is_fade = true;
+				break;
+			case 2:
+				curr_map = MAP_1;
+				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+				App->map->CleanUp();
+				App->collision->CleanUp();
+				App->map->Load("Cave_map.tmx");
+				App->player->player_pos.x = App->player->last_saved_pos.x;
+				App->player->player_pos.y = App->player->last_saved_pos.y;
+				is_fade = true;
+				break;
+			default:
+				break;
+			}
+		}
+
+	}
+	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		App->SaveGame();
+
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (currentmap == 1) {
+			App->collision->ColliderCleanUp();
+			App->fadetoblack->FadeToBlack(this, this, 3.0f);
 			App->map->CleanUp();
-			App->map->Load("maps/Cave_map.tmx");
+			App->map->Load("maps/dirt_map.tmx");
+			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+			App->map->loadcollision(colnode);
 			currentmap = 2;
+			
+			is_fade = true;
 		}
 		else if (currentmap == 2) {
+			App->fadetoblack->FadeToBlack(this, this, 3.0f);
 			App->map->CleanUp();
-		App->map->Load("maps/dirt_map.tmx");
+			App->collision->ColliderCleanUp();
+			App->map->Load("maps/Cave_map.tmx");
+			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+			App->map->loadcollision(colnode);
 			currentmap = 1;
+
+			is_fade = true;
 	}
 
-	}*/
+	}
 	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		//App->render->camera.y += 1;
 

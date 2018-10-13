@@ -49,9 +49,10 @@ public:
 	j1Collisions();
 	~j1Collisions();
 
-	bool PreUpdate() override;
+	bool PreUpdate();
 	bool Update(float dt);
-	bool CleanUp() override;
+	bool CleanUp();
+	bool ColliderCleanUp();
 
 	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, j1Module* callback = nullptr);
 	bool EraseCollider(Collider* collider);
