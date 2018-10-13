@@ -44,14 +44,18 @@ public:
 	j1Player();
 	~j1Player();
 
+
+	bool Awake(pugi::xml_node&);
+
 	bool Start();
 	bool Update(float dt);
 	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
-	/*void CalculatePosition();
-	void SetPlayerActions();
-	void CalculateTime();*/
+	
+	bool Load(pugi::xml_node&);
+	// Save
+	bool Save(pugi::xml_node&) const;
 
 public:
 
@@ -87,6 +91,7 @@ public:
 
 public:
 
+	
 	fPoint last_saved_pos = { 0.0f,0.0f };
 	fPoint player_pos = { 0.0f,0.0f };
 	int saved_map = 1;

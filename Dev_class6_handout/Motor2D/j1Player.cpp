@@ -88,6 +88,15 @@ j1Player::~j1Player()
 {
 }
 
+bool j1Player::Awake(pugi::xml_node& node)
+{
+	
+	position.x = node.child("initial_attributes").attribute("x").as_float();
+	position.y = node.child("initial_attributes").attribute("y").as_float();
+	
+
+	return true;
+}
 // Load assets
 bool j1Player::Start()
 {
@@ -99,16 +108,13 @@ bool j1Player::Start()
 	//prev_sec = current_sec = SDL_GetTicks();
 
 	//destroyed=false;
-	position.x = 50.f;
-	position.y = 600.f;
-
+	
 	//acc.x = 0;
 	//acc.y = gravity;
 	
 	speed.x = 0;
 	speed.y = 0;
 
-	
 
 	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,35 }, COLLIDER_PLAYER, this);
 
@@ -191,7 +197,32 @@ bool j1Player::CleanUp()
 	return true;
 }
 // Update: draw background
+//save and load
+bool j1Player::Load(pugi::xml_node& save)
+{
+	if (save.child("position") != NULL)
+	{
+		position.x = save.child("position").attribute("x").as_float();
+		position.y = save.child("position").attribute("y").as_float();
+	}
 
+	return true;
+}
+
+bool j1Player::Save(pugi::xml_node& save) const
+{
+	if (save.child("position") == NULL)
+	{
+		save.append_child("position").append_attribute("x") = position.x;
+		save.child("position").append_attribute("y") = position.y;
+	}
+	else {
+		save.child("position").attribute("x") = position.x;
+		save.child("position").attribute("y") = position.y;
+	}
+
+	return true;
+}
 //
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	
