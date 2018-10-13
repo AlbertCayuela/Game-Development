@@ -103,10 +103,11 @@ bool j1Player::Start()
 	acc.x = 0;
 	acc.y = gravity;
 	
-	speed.x = 3;
-	speed.y = 3;
+	speed.x = 0;
+	speed.y = 0;
 
-	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,30 }, COLLIDER_PLAYER, this);
+	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,35 }, COLLIDER_PLAYER, this);
+
 	return true;
 }
 
@@ -131,6 +132,12 @@ bool j1Player::Update(float dt)
 		if (right_up || left_down)state = STATE::IDLE;
 		if (space_down)state = STATE::JUMPING;
 		break;
+	case STATE::WALKING_LEFT:
+		if (left_up || right_down)state = STATE::IDLE;
+	
+		if (space_down)state = STATE::JUMPING;
+		break;
+
 	case STATE::JUMPING:
 		if (right_down && !left_down)state = STATE::JUMPING_RIGHT;
 		if (left_down && !right_down)state = STATE::JUMPING_LEFT;
@@ -163,7 +170,10 @@ bool j1Player::Update(float dt)
 	CalculateTime();
 	CalculatePosition();
 
-	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
+	
+	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
+	
+
 	player_col->SetPos(position.x, position.y);
 
 	return true;
@@ -173,7 +183,9 @@ bool j1Player::PostUpdate()
 {
 	
 	player_col->SetPos(position.x, position.y);
-	App->render->DrawQuad(player_col->rect,255,0,0);
+	
+	
+	//App->render->DrawQuad(player_col->rect,255,0,0);
 	return true;
 }
 
@@ -223,19 +235,19 @@ void j1Player::SetPlayerActions()
 		is_in_air = false;
 		break;
 	case STATE::WALKING_RIGHT:
-		speed.x = 20;
+		speed.x = 40;
 		current_animation = &walking_right;
 		break;
 	case STATE::WALKING_LEFT:
-		speed.x = -20;
+		speed.x = -40;
 		current_animation = &walking_left;
 		break;
 	case STATE::JUMPING:
-		speed.x = 0;
+		speed.x = 2;
 		current_animation = &jump_right;
 		if (is_in_air == false)
 		{
-			speed.y = -20;
+			speed.y = -40;
 			acc.y = gravity;
 			is_in_air = true;
 			is_on_floor = false;

@@ -40,6 +40,7 @@ bool j1Scene::Start()
 	App->map->Load("maps/Cave_map.tmx");
 	currentmap = 1;
 	
+	
 	//App->map->Load("iso.tmx");
 	
 	return true;

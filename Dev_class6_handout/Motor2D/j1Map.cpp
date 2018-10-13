@@ -161,6 +161,9 @@ void j1Map::drawcollisions(pugi::xml_node &node) {
 		if (checkcol == "death")
 			App->collision->AddCollider(collision, COLLIDER_DEATH);
 
+		if (checkcol == "player")
+			App->collision->AddCollider(collision, COLLIDER_PLAYER);
+
 	}
 }
 

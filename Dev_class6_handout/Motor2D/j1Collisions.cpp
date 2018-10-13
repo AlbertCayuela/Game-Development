@@ -13,24 +13,18 @@ j1Collisions::j1Collisions()
 		colliders[i] = nullptr;
 
 
-	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
-	matrix[COLLIDER_DEATH][COLLIDER_MAX] = false;
-	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
-
-	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
-	matrix[COLLIDER_FLOOR][COLLIDER_MAX] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
 
-	matrix[COLLIDER_MAX][COLLIDER_DEATH] = false;
-	matrix[COLLIDER_MAX][COLLIDER_FLOOR] = false;
-	matrix[COLLIDER_MAX][COLLIDER_MAX] = false;
-	matrix[COLLIDER_MAX][COLLIDER_PLAYER] = true;
 
-	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
+	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
+
+
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_MAX] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 }
 
@@ -102,7 +96,7 @@ bool j1Collisions::Update(float dt)
 void j1Collisions::DebugDraw()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-		if (debug == false) debug = true;
+		if (debug== false) debug = true;
 		else debug = false;
 		LOG("Showing Colliders ");
 	}
@@ -126,6 +120,9 @@ void j1Collisions::DebugDraw()
 			break;
 		case COLLIDER_DEATH: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
+			break;
+		case COLLIDER_PLAYER: //red
+			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0);
 			break;
 		
 

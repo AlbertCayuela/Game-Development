@@ -80,6 +80,8 @@ public:
 	
 	float gravity = 30;
 
+	bool debug = true;
+
 	STATE state = STATE::FALLING;
 	DIRECTION direction = DIRECTION::IDLE;
 };
