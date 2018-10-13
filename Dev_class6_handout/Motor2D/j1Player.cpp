@@ -94,69 +94,77 @@ bool j1Player::Start()
 	graphics = App->tex->Load("maps/spritesheet.png");
 
 
-	
+	prev_sec = current_sec = SDL_GetTicks();
 
 	//destroyed=false;
-	position.x = 50;
-	position.y = 600;
+	position.x = 50.f;
+	position.y = 600.f;
 
 	acc.x = 0;
 	acc.y = gravity;
-	//player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER,this);
+	
 	speed.x = 3;
 	speed.y = 3;
 
-	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
+	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,30 }, COLLIDER_PLAYER, this);
 	return true;
 }
 
 // Unload assets
 bool j1Player::Update(float dt)
 {
+	bool right_down = (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT);
+	bool left_down= (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT);
+	bool space_down= (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT);
+	bool right_up= (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP);
+	bool left_up = (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP);
+	bool falling = (speed.y >= 0);
 
-	prev_pos = position;
-
-	position.y += speed.y; // Automatic movement
-
-
-
-
-	current_animation = &idle;
-
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	switch (state)
 	{
-
-		position.x += speed.x;
-		current_animation = &walking_right;
+	case STATE::IDLE:
+		if (right_down && !left_down) state = STATE::WALKING_RIGHT;
+		if (left_down && !right_down)state = STATE::WALKING_LEFT;
+		if (space_down)state = STATE::JUMPING;
+		break;
+	case STATE::WALKING_RIGHT:
+		if (right_up || left_down)state = STATE::IDLE;
+		if (space_down)state = STATE::JUMPING;
+		break;
+	case STATE::JUMPING:
+		if (right_down && !left_down)state = STATE::JUMPING_RIGHT;
+		if (left_down && !right_down)state = STATE::JUMPING_LEFT;
+		if (falling)state = STATE::FALLING;
+		break;
+	case STATE::JUMPING_RIGHT:
+		if (right_up || left_down)state = STATE::JUMPING;
+		if (falling)state = STATE::FALLING;
+		break;
+	case STATE::JUMPING_LEFT:
+		if (left_up || right_down)state = STATE::JUMPING;
+		if (falling)state = STATE::FALLING;
+		break;
+	case STATE::FALLING:
+		if (right_down && !left_down)state = STATE::FALLING_RIGHT;
+		if (left_down && !right_down)state = STATE::FALLING_LEFT;
+		if (is_on_floor)state = STATE::IDLE;
+	case STATE::FALLING_RIGHT:
+		if (right_up || left_down)state = STATE::FALLING;
+		if (is_on_floor)state = STATE::IDLE;
+		break;
+	case STATE::FALLING_LEFT:
+		if (left_up || right_down)state = STATE::FALLING;
+		if (is_on_floor)state = STATE::IDLE;
+		break;
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-	{
-
-		position.x -= speed.x;
-		current_animation = &walking_left;
-
-	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
-	{
-		current_animation = &attack_right;
-	}
-
-
-
-	player_col->SetPos(position.x, position.y);
-	App->render->DrawQuad(player_col->rect, 255, 0, 0);
-
-	//current_animation = &walking_right;
-	// Draw everything --------------------------------------
+	SetPlayerActions();
+	CalculateTime();
+	CalculatePosition();
 
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
-
-	// Draw UI (score) --------------------------------------
-
-	// TODO 3: Blit the text of the score in at the bottom of the screen
+	player_col->SetPos(position.x, position.y);
 
 	return true;
 }
@@ -165,6 +173,7 @@ bool j1Player::PostUpdate()
 {
 	
 	player_col->SetPos(position.x, position.y);
+	App->render->DrawQuad(player_col->rect,255,0,0);
 	return true;
 }
 
@@ -179,14 +188,91 @@ bool j1Player::CleanUp()
 }
 // Update: draw background
 
+void j1Player::CalculatePosition()
+{
+
+	speed.x = speed.x + acc.x * sec;
+	speed.y = speed.y + acc.y*sec;
+	position.x = position.x + speed.x * sec + acc.x * sec*sec*0.5f;
+	position.y = position.y + speed.y * sec + acc.y * sec*sec*0.5f;
+	next_pos.x = position.x + speed.x * (sec + 0.1);
+	next_pos.y = position.y + speed.y*(sec + 0.1);
+
+	if (speed.x > 0)direction = DIRECTION::TO_RIGHT;
+	if (speed.x < 0)direction = DIRECTION::TO_LEFT;
+	if (speed.y > 0)direction = DIRECTION::TO_DOWN;
+	if (speed.y < 0)direction = DIRECTION::TO_UP;
+}
+
+void j1Player::CalculateTime()
+{
+	current_sec = SDL_GetTicks();
+	sec = current_sec - prev_sec;
+	sec = sec / 1000;
+	prev_sec = current_sec;
+}
+
+void j1Player::SetPlayerActions() 
+{
+
+	switch (state)
+	{
+	case STATE::IDLE:
+		speed.x = 0;
+		current_animation = &idle;
+		is_in_air = false;
+		break;
+	case STATE::WALKING_RIGHT:
+		speed.x = 20;
+		current_animation = &walking_right;
+		break;
+	case STATE::WALKING_LEFT:
+		speed.x = -20;
+		current_animation = &walking_left;
+		break;
+	case STATE::JUMPING:
+		speed.x = 0;
+		current_animation = &jump_right;
+		if (is_in_air == false)
+		{
+			speed.y = -20;
+			acc.y = gravity;
+			is_in_air = true;
+			is_on_floor = false;
+		}
+		break;
+	case STATE::JUMPING_RIGHT:
+		speed.x = 20;
+		break;
+	case STATE::JUMPING_LEFT:
+		speed.x = -20;
+		break;
+	case STATE::FALLING:
+		current_animation = &jump_right;
+		speed.x = 0;
+		break;
+	case STATE::FALLING_RIGHT:
+		speed.x = 20;
+	case STATE::FALLING_LEFT:
+		current_animation = &jump_left;
+		break;
+	}
+
+}
+
+
+
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	
 	
-	
-
-		if (c2->type == COLLIDER_FLOOR)
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
+	{
+		if (speed.y >= 0)
 		{
-			position = prev_pos;
+			position.y = c2->rect.y - c1->rect.h;
+			acc.y = 0;
+			is_on_floor = true;
 		}
+	}
 	
 }
