@@ -15,18 +15,22 @@ j1Collisions::j1Collisions()
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_DEATH][COLLIDER_MAX] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_FLOOR][COLLIDER_MAX] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_MAX][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_MAX][COLLIDER_FLOOR] = false;
+	matrix[COLLIDER_MAX][COLLIDER_MAX] = false;
 	matrix[COLLIDER_MAX][COLLIDER_PLAYER] = true;
 
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_MAX] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 }
 
@@ -123,13 +127,7 @@ void j1Collisions::DebugDraw()
 		case COLLIDER_DEATH: // green
 			App->render->DrawQuad(colliders[i]->rect, 0, 255, 0, alpha);
 			break;
-		case COLLIDER_END: // GROC
-			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0, alpha);
-			break;
-		case COLLIDER_PLAYER: //red
-			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0);
-			break;
-
+		
 
 		}
 	}
@@ -190,12 +188,12 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
 
-	bool ret = true;
+	//bool ret = true;
 
-	if (r.x + r.w < rect.x) ret = false;
-	else if (r.x > rect.x + rect.w) ret = false;
-	else if (r.y + r.h < rect.y)ret = false;
-	else if (r.y > rect.h + rect.y)ret = false;
+	//if (r.x + r.w < rect.x) ret = false;
+	//else if (r.x > rect.x + rect.w) ret = false;
+	//else if (r.y + r.h < rect.y)ret = false;
+	//else if (r.y > rect.h + rect.y)ret = false;
 
-	return true;
+	return !(r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.h + rect.y);
 }

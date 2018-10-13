@@ -98,15 +98,15 @@ bool j1Player::Start()
 
 	//destroyed=false;
 	position.x = 50;
-	position.y = 710;
+	position.y = 600;
 
 	acc.x = 0;
 	acc.y = gravity;
 	//player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER,this);
 	speed.x = 3;
-	speed.y = 1;
+	speed.y = 3;
 
-	player_col = App->collision->AddCollider({ position.x,position.y,30,35 }, COLLIDER_PLAYER, this);
+	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
 	return true;
 }
 
@@ -147,7 +147,6 @@ bool j1Player::Update(float dt)
 
 
 	player_col->SetPos(position.x, position.y);
-
 	App->render->DrawQuad(player_col->rect, 255, 0, 0);
 
 	//current_animation = &walking_right;
@@ -184,14 +183,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	
 	
 	
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
-	{
-		if (speed.y >= 0) {
-			position.y = c2->rect.y - c1->rect.h;
-			speed.y = 0;
-			tocaterra = true;
-		}
 
+		if (c2->type == COLLIDER_FLOOR)
+		{
+			position = prev_pos;
+		}
 	
-	}
 }
