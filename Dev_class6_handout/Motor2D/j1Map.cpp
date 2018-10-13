@@ -144,6 +144,25 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
+void j1Map::drawcollisions(pugi::xml_node &node) {
+
+	for (pugi::xml_node col = node.child("object"); col; col = col.next_sibling("object")) {
+		SDL_Rect collision;
+		p2SString checkcol;
+		checkcol = col.attribute("name").as_string();
+		collision.x = col.attribute("x").as_uint();
+		collision.y = col.attribute("y").as_uint();
+		collision.h = col.attribute("height").as_uint();
+		collision.w = col.attribute("width").as_uint();
+
+		if (checkcol == "floor")
+			App->collision->AddCollider(collision, COLLIDER_FLOOR);
+
+		if (checkcol == "death")
+			App->collision->AddCollider(collision, COLLIDER_DEATH);
+
+	}
+}
 
 // Called before quitting
 bool j1Map::CleanUp()
@@ -436,25 +455,8 @@ inline uint MapLayer::Get(int x, int y) const {
 
 	return data[width * y + x];
 }
-void j1Map::drawcollisions(pugi::xml_node &node) {
 
-	for (pugi::xml_node col = node.child("object"); col; col = col.next_sibling("object")) {
-		SDL_Rect collision;
-		p2SString checkcol;
-		checkcol = col.attribute("name").as_string();
-		collision.x = col.attribute("x").as_uint();
-		collision.y = col.attribute("y").as_uint();
-		collision.h = col.attribute("height").as_uint();
-		collision.w = col.attribute("width").as_uint();
 
-		if (checkcol == "floor")
-			App->collision->AddCollider(collision, COLLIDER_FLOOR);
-	
-	if (checkcol == "death")
-		App->collision->AddCollider(collision, COLLIDER_DEATH);
 
-}
-
-}
 
 

@@ -17,6 +17,7 @@ public:
 
 	bool Start();
 	bool Update(float dt);
+	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 
@@ -40,7 +41,8 @@ public:
 	Collider* player_col=nullptr;
 	bool destroyed = false;
 
-	
+	fPoint acc;
+	float gravity = 250;
 };
 
 #endif

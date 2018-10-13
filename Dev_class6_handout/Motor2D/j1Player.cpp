@@ -94,43 +94,36 @@ bool j1Player::Start()
 	graphics = App->tex->Load("maps/spritesheet.png");
 
 
-	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
+	
 
 	//destroyed=false;
 	position.x = 50;
 	position.y = 600;
 
+	acc.x = 0;
+	acc.y = gravity;
 	//player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER,this);
 	speed.x = 3;
 	speed.y = 3;
+
+	player_col = App->collision->AddCollider({ position.x,position.y,30,30 }, COLLIDER_PLAYER, this);
 	return true;
 }
 
 // Unload assets
-bool j1Player::CleanUp()
-{
-	LOG("Unloading player");
-
-	App->tex->UnLoad(graphics);
-	App->collision->EraseCollider(player_col);
-
-	return true;
-}
-
-// Update: draw background
 bool j1Player::Update(float dt)
 {
-	
-	prev_pos = position;
-	
-	position.y += speed.y; // Automatic movement
-	
 
-	 
+	prev_pos = position;
+
+	position.y += speed.y; // Automatic movement
+
+
+
 
 	current_animation = &idle;
 
-	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
 
 		position.x += speed.x;
@@ -146,19 +139,19 @@ bool j1Player::Update(float dt)
 
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT) 
+	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_REPEAT)
 	{
 		current_animation = &attack_right;
 	}
-	
-	
+
+
 
 	player_col->SetPos(position.x, position.y);
-	App->render->DrawQuad(player_col->rect, 255 , 0, 0);
+	App->render->DrawQuad(player_col->rect, 255, 0, 0);
 
 	//current_animation = &walking_right;
 	// Draw everything --------------------------------------
-	
+
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));
 
 	// Draw UI (score) --------------------------------------
@@ -167,6 +160,24 @@ bool j1Player::Update(float dt)
 
 	return true;
 }
+
+bool j1Player::PostUpdate()
+{
+	
+	player_col->SetPos(position.x, position.y);
+	return true;
+}
+
+bool j1Player::CleanUp()
+{
+	LOG("Unloading player");
+
+	App->tex->UnLoad(graphics);
+	App->collision->EraseCollider(player_col);
+
+	return true;
+}
+// Update: draw background
 
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	

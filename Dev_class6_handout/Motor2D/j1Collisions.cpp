@@ -9,9 +9,9 @@
 
 j1Collisions::j1Collisions()
 {
-	//for (uint i = 0; i < MAX_COLLIDERS; ++i)
-		//colliders[i] = nullptr;
-	name.create("collisions");
+	for (uint i = 0; i < MAX_COLLIDERS; ++i)
+		colliders[i] = nullptr;
+
 
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
@@ -49,16 +49,6 @@ bool j1Collisions::PreUpdate()
 			colliders[i] = nullptr;
 		}
 	}
-
-	
-	
-
-	return true;
-}
-
-// Called before render is available
-bool j1Collisions::Update(float dt)
-{
 	// Calculate collisions
 	Collider* c1;
 	Collider* c2;
@@ -90,8 +80,19 @@ bool j1Collisions::Update(float dt)
 			}
 		}
 	}
+	
+	
 
+	return true;
+}
+
+// Called before render is available
+bool j1Collisions::Update(float dt)
+{
 	DebugDraw();
+	             
+
+	
 
 	return true;
 
@@ -100,14 +101,14 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	/*if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 		if (debug == false) debug = true;
 		else debug = false;
 		LOG("Showing Colliders ");
 	}
 
 	if (debug == false)
-		return;*/
+		return;
 
 	Uint8 alpha = 80;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
@@ -187,12 +188,12 @@ bool Collider::CheckCollision(const SDL_Rect& r) const
 	// TODO 0: Return true if there is an overlap
 	// between argument "r" and property "rect"
 
-	bool ret = true;
+	//bool ret = true;
 
-	if (r.x + r.w < rect.x) ret = false;
-	else if (r.x > rect.x + rect.w) ret = false;
-	else if (r.y + r.h < rect.y)ret = false;
-	else if (r.y > rect.h + rect.y)ret = false;
+	//if (r.x + r.w < rect.x) ret = false;
+	//else if (r.x > rect.x + rect.w) ret = false;
+	//else if (r.y + r.h < rect.y)ret = false;
+	//else if (r.y > rect.h + rect.y)ret = false;
 
-	return ret;
+	return !(r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.h + rect.y);
 }
