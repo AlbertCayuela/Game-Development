@@ -97,7 +97,7 @@ public:
 	// Coordinate translation methods
 	iPoint MapToWorld(int x, int y) const;
 	iPoint WorldToMap(int x, int y) const;
-	void drawcollisions(pugi::xml_node &node);
+	void loadcollision(pugi::xml_node &node);
 
 private:
 
@@ -110,6 +110,8 @@ public:
 
 	MapData data;
 	//MapLayer layer_data;
+	iPoint spawn_pos = { 0, 0 };
+
 
 private:
 

@@ -95,7 +95,7 @@ bool j1Collisions::Update(float dt)
 
 void j1Collisions::DebugDraw()
 {
-	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 		if (debug== false) debug = true;
 		else debug = false;
 		LOG("Showing Colliders ");
@@ -123,6 +123,9 @@ void j1Collisions::DebugDraw()
 			break;
 		case COLLIDER_PLAYER: //red
 			App->render->DrawQuad(colliders[i]->rect, 255, 0, 0);
+			break;
+		case COLLIDER_END: //YELLOW
+			App->render->DrawQuad(colliders[i]->rect, 255, 255, 0);
 			break;
 		
 

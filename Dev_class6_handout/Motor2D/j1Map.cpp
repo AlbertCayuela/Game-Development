@@ -144,7 +144,7 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
-void j1Map::drawcollisions(pugi::xml_node &node) {
+void j1Map::loadcollision(pugi::xml_node &node) {
 
 	for (pugi::xml_node col = node.child("object"); col; col = col.next_sibling("object")) {
 		SDL_Rect collision;
@@ -163,6 +163,10 @@ void j1Map::drawcollisions(pugi::xml_node &node) {
 
 		if (checkcol == "player")
 			App->collision->AddCollider(collision, COLLIDER_PLAYER);
+		if (checkcol == "start")
+			App->collision->AddCollider(collision, COLLIDER_START);
+		if (checkcol == "end")
+			App->collision->AddCollider(collision, COLLIDER_END);
 
 	}
 }
@@ -254,7 +258,7 @@ bool j1Map::Load(const char* file_name)
 	pugi::xml_node colnode=map_file.child("map").child("objectgroup");
 
 
-	drawcollisions(colnode);
+	loadcollision(colnode);
 
 
 
