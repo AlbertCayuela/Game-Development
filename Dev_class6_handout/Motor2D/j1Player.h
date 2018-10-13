@@ -43,6 +43,7 @@ public:
 
 	fPoint acc;
 	float gravity = 250;
+	bool tocaterra = false;
 };
 
 #endif

@@ -159,7 +159,14 @@ void j1Map::drawcollisions(pugi::xml_node &node) {
 			App->collision->AddCollider(collision, COLLIDER_FLOOR);
 
 		if (checkcol == "death")
+
 			App->collision->AddCollider(collision, COLLIDER_DEATH);
+		if (checkcol == "player")
+
+			App->collision->AddCollider(collision, COLLIDER_PLAYER);
+		if (checkcol == "end")
+
+			App->collision->AddCollider(collision, COLLIDER_END);
 
 	}
 }
