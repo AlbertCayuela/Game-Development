@@ -35,7 +35,8 @@ class j1Player : public j1Module
 		TO_RIGHT,
 		TO_LEFT,
 		TO_UP,
-		TO_DOWN
+		TO_DOWN,
+		NONE
 
 	};
 
@@ -48,21 +49,22 @@ public:
 	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
-	void CalculatePosition();
+	/*void CalculatePosition();
 	void SetPlayerActions();
-	void CalculateTime();
+	void CalculateTime();*/
 
 public:
 
 	SDL_Texture * graphics = nullptr;	
 	//SDL_Rect player_rect;
-	float sec;
-	uint current_sec;
-	uint prev_sec=0;
+	//float sec;
+	//uint current_sec;
+	//uint prev_sec=0;
 	fPoint speed;
-	fPoint acc;
+	//fPoint acc;
 	fPoint position;
-	fPoint next_pos;
+	fPoint prev_pos;
+	//fPoint next_pos;
 	Animation* current_animation;
 	Animation idle;
 	Animation jump_attack_right;
@@ -77,7 +79,10 @@ public:
 	bool destroyed = false;
 	bool is_on_floor = false;
 	bool is_in_air = false;
-	
+	bool jumping = false;
+	bool falling = false;
+
+	float jumping_time = 0;
 	float gravity = 30;
 
 	bool debug = true;

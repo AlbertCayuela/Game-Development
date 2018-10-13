@@ -11,6 +11,8 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Collisions.h"
+#define SPEED 3
+
 
 j1Player::j1Player()
 {
@@ -94,19 +96,23 @@ bool j1Player::Start()
 	graphics = App->tex->Load("maps/spritesheet.png");
 
 
-	prev_sec = current_sec = SDL_GetTicks();
+	//prev_sec = current_sec = SDL_GetTicks();
 
 	//destroyed=false;
 	position.x = 50.f;
 	position.y = 600.f;
 
-	acc.x = 0;
-	acc.y = gravity;
+	//acc.x = 0;
+	//acc.y = gravity;
 	
 	speed.x = 0;
 	speed.y = 0;
 
+	
+
 	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,35 }, COLLIDER_PLAYER, this);
+
+	current_animation = &idle;
 
 	return true;
 }
@@ -114,14 +120,56 @@ bool j1Player::Start()
 // Unload assets
 bool j1Player::Update(float dt)
 {
-	bool right_down = (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT);
+
+	position.x += speed.x;
+	position.y += speed.y+4;
+	
+	falling = false;
+
+	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		//speed.x += 3;
+		position.x += SPEED;
+		current_animation = &walking_right;
+		is_on_floor=true;
+	}
+	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
+		position.x -= SPEED;
+		current_animation = &walking_left;
+		is_on_floor = true;
+	}
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	{
+
+		jumping = true;
+		
+	}
+	if (jumping_time == 0.0f) prev_pos.y = -1 * position.y;
+	if (jumping) 
+	{
+		jumping_time += 0.1f;
+		position.y -= 10;
+		if (position.y > prev_pos.y&&jumping_time >= 1.f) 
+		{
+			position.y += 1;
+			jumping_time = 0.0f;
+			jumping = false;
+			falling = true;
+		}
+	}
+	if(falling)current_animation = &jump_right;
+	
+
+	
+	/*bool right_down = (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT);
 	bool left_down= (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT);
 	bool space_down= (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT);
 	bool right_up= (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP);
 	bool left_up = (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP);
-	bool falling = (speed.y >= 0);
+	bool falling = (speed.y >= 0);*/
 
-	switch (state)
+	/*switch (state)
 	{
 	case STATE::IDLE:
 		if (right_down && !left_down) state = STATE::WALKING_RIGHT;
@@ -168,7 +216,7 @@ bool j1Player::Update(float dt)
 
 	SetPlayerActions();
 	CalculateTime();
-	CalculatePosition();
+	CalculatePosition();*/
 
 	
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
@@ -200,91 +248,159 @@ bool j1Player::CleanUp()
 }
 // Update: draw background
 
-void j1Player::CalculatePosition()
-{
-
-	speed.x = speed.x + acc.x * sec;
-	speed.y = speed.y + acc.y*sec;
-	position.x = position.x + speed.x * sec + acc.x * sec*sec*0.5f;
-	position.y = position.y + speed.y * sec + acc.y * sec*sec*0.5f;
-	next_pos.x = position.x + speed.x * (sec + 0.1);
-	next_pos.y = position.y + speed.y*(sec + 0.1);
-
-	if (speed.x > 0)direction = DIRECTION::TO_RIGHT;
-	if (speed.x < 0)direction = DIRECTION::TO_LEFT;
-	if (speed.y > 0)direction = DIRECTION::TO_DOWN;
-	if (speed.y < 0)direction = DIRECTION::TO_UP;
-}
-
-void j1Player::CalculateTime()
-{
-	current_sec = SDL_GetTicks();
-	sec = current_sec - prev_sec;
-	sec = sec / 1000;
-	prev_sec = current_sec;
-}
-
-void j1Player::SetPlayerActions() 
-{
-
-	switch (state)
-	{
-	case STATE::IDLE:
-		speed.x = 0;
-		current_animation = &idle;
-		is_in_air = false;
-		break;
-	case STATE::WALKING_RIGHT:
-		speed.x = 40;
-		current_animation = &walking_right;
-		break;
-	case STATE::WALKING_LEFT:
-		speed.x = -40;
-		current_animation = &walking_left;
-		break;
-	case STATE::JUMPING:
-		speed.x = 2;
-		current_animation = &jump_right;
-		if (is_in_air == false)
-		{
-			speed.y = -40;
-			acc.y = gravity;
-			is_in_air = true;
-			is_on_floor = false;
-		}
-		break;
-	case STATE::JUMPING_RIGHT:
-		speed.x = 20;
-		break;
-	case STATE::JUMPING_LEFT:
-		speed.x = -20;
-		break;
-	case STATE::FALLING:
-		current_animation = &jump_right;
-		speed.x = 0;
-		break;
-	case STATE::FALLING_RIGHT:
-		speed.x = 20;
-	case STATE::FALLING_LEFT:
-		current_animation = &jump_left;
-		break;
-	}
-
-}
-
-
-
+//void j1Player::CalculatePosition()
+//{
+//
+//	speed.x = speed.x + acc.x * sec;
+//	speed.y = speed.y + acc.y*sec;
+//	position.x = position.x + speed.x * sec + acc.x * sec*sec*0.5f;
+//	position.y = position.y + speed.y * sec + acc.y * sec*sec*0.5f;
+//	next_pos.x = position.x + speed.x * (sec + 0.1);
+//	next_pos.y = position.y + speed.y*(sec + 0.1);
+//
+//	if (speed.x > 0)direction = DIRECTION::TO_RIGHT;
+//	if (speed.x < 0)direction = DIRECTION::TO_LEFT;
+//	if (speed.y > 0)direction = DIRECTION::TO_DOWN;
+//	if (speed.y < 0)direction = DIRECTION::TO_UP;
+//}
+//
+//void j1Player::CalculateTime()
+//{
+//	current_sec = SDL_GetTicks();
+//	sec = current_sec - prev_sec;
+//	sec = sec / 1000;
+//	prev_sec = current_sec;
+//}
+//
+//void j1Player::SetPlayerActions() 
+//{
+//
+//	switch (state)
+//	{
+//	case STATE::IDLE:
+//		speed.x = 0;
+//		current_animation = &idle;
+//		is_in_air = false;
+//		break;
+//	case STATE::WALKING_RIGHT:
+//		speed.x = 40;
+//		current_animation = &walking_right;
+//		break;
+//	case STATE::WALKING_LEFT:
+//		speed.x = -40;
+//		current_animation = &walking_left;
+//		break;
+//	case STATE::JUMPING:
+//		speed.x = 2;
+//		current_animation = &jump_right;
+//		if (is_in_air == false)
+//		{
+//			speed.y = -40;
+//			acc.y = gravity;
+//			is_in_air = true;
+//			is_on_floor = false;
+//		}
+//		break;
+//	case STATE::JUMPING_RIGHT:
+//		speed.x = 20;
+//		break;
+//	case STATE::JUMPING_LEFT:
+//		speed.x = -20;
+//		break;
+//	case STATE::FALLING:
+//		current_animation = &jump_right;
+//		speed.x = 0;
+//		break;
+//	case STATE::FALLING_RIGHT:
+//		speed.x = 20;
+//	case STATE::FALLING_LEFT:
+//		current_animation = &jump_left;
+//		break;
+//	}
+//
+//}
+//
+//
+//
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {	
+	uint directionLeft = (position.x < c2->rect.x);
+	uint directionRight = (c2->rect.x + c2->rect.w < position.x);
+	uint directionUp = (position.y < c2->rect.y + c2->rect.h);
+	//Check if it collides from up or down
+	uint directionCornerUp = (c2->rect.y + c2->rect.h / 4 > position.y);
+	uint directionCornerDown = (c2->rect.y + c2->rect.h / 4 < position.y);
 	
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR) 
+	if (c1 == player_col) 
 	{
-		if (speed.y >= 0)
+		switch (c2->type)
 		{
-			position.y = c2->rect.y - c1->rect.h;
-			acc.y = 0;
-			is_on_floor = true;
+		case COLLIDER_FLOOR:
+			SDL_Rect player = c1->rect;
+			SDL_Rect coll = c2->rect;
+
+			bool directions[(uint)DIRECTION::NONE];
+			directions[(uint)DIRECTION::TO_RIGHT] = speed.x < 0;
+			directions[(uint)DIRECTION::TO_RIGHT] = speed.x > 0;
+			directions[(uint)DIRECTION::TO_UP] = speed.y < 0;
+			directions[(uint)DIRECTION::TO_DOWN] = speed.y > 0;
+
+			uint distances[(uint)DIRECTION::NONE];
+			distances[(uint)DIRECTION::TO_RIGHT] = player.x + player.w - coll.x;
+			distances[(uint)DIRECTION::TO_LEFT] = coll.x + coll.w - player.x;
+			distances[(uint)DIRECTION::TO_UP] = coll.y + coll.h - player.y;
+			distances[(uint)DIRECTION::TO_DOWN] = player.y + player.h - coll.y;
+
+			int offset_direction = -1;
+
+			for (uint i = 0; i < (uint)DIRECTION::NONE; ++i)
+			{
+				if (directions[i]) {
+
+					if (offset_direction == -1)
+						offset_direction = i;
+					else if (distances[i] < distances[(uint)offset_direction])
+						offset_direction = i;
+				}
+			}
+			switch ((DIRECTION)offset_direction) {
+
+			case DIRECTION::TO_RIGHT:
+				position.x = coll.x - player.w / 2;
+				speed.x = 0;
+				break;
+			case DIRECTION::TO_LEFT:
+				position.x = coll.x + coll.w + player.w / 2;
+				speed.x = 0;
+				break;
+			case DIRECTION::TO_UP:
+				position.y = coll.y + coll.h + player.h / 2;
+				speed.y = 0;
+				break;
+			case DIRECTION::TO_DOWN:
+				position.y = coll.y - player.h / 2;
+				speed.y = 0;
+				//check_fall = true;
+				is_on_floor = true;
+				break;
+			}
+
 		}
 	}
+
+	//if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
+	//{
+	//	if (speed.y >= 0)
+	//	{
+	//		position.y = c2->rect.y - c1->rect.h;
+	//		speed.y = 0;
+	//		is_on_floor = true;
+	//	}
+	//	/*if (speed.x >= 0) 
+	//	{
+	//		position.x = c2->rect.x - c2->rect.w;
+	//	}*/
+	//}
+	
 	
 }
