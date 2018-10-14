@@ -35,7 +35,7 @@ j1Player::j1Player()
 	walking_right.PushBack({78,236,32,37});
 	walking_right.PushBack({138,236,31,37});
 	walking_right.PushBack({198,235,33,38});
-	walking_right.speed = 0.05f;
+	walking_right.speed = 0.13f;
 	walking_right.loop = true;
 
 	//walking to the left
@@ -43,7 +43,7 @@ j1Player::j1Player()
 	walking_left.PushBack({523,228,33,38});
 	walking_left.PushBack({464,229,31,37});
 	walking_left.PushBack({402,228,33,38});
-	walking_left.speed = 0.05f;
+	walking_left.speed = 0.13f;
 	walking_left.loop = true;
 
 	//jump to the right
