@@ -36542,8 +36542,8 @@
   <object id="38" name="floor" x="1551.67" y="575.667" width="60" height="3"/>
   <object id="39" name="floor" x="1504" y="751" width="49.3333" height="3.66633"/>
   <object id="40" name="floor" x="1647" y="559.333" width="14.6667" height="2.66663"/>
-  <object id="41" name="floor" x="1695.34" y="543" width="13" height="2.33337"/>
-  <object id="42" name="floor" x="1742.33" y="527.333" width="14.6667" height="2.33337"/>
+  <object id="41" name="floor" x="1694.43" y="543.273" width="14.7273" height="2.6061"/>
+  <object id="42" name="floor" x="1742.03" y="527.811" width="15.6232" height="2.33337"/>
   <object id="43" name="floor" x="1774.57" y="511.333" width="109.423" height="3.33333"/>
   <object id="44" name="floor" x="1615.33" y="352.667" width="172.667" height="2.66667"/>
   <object id="45" name="floor" x="1680.67" y="383.333" width="42.6667" height="3.3333"/>
@@ -36585,8 +36585,8 @@
   <object id="104" name="wallr" x="1465.92" y="770.75" width="3.75" height="187.25"/>
   <object id="105" name="wallr" x="1609.67" y="578.813" width="4.75" height="380.188"/>
   <object id="106" name="wallr" x="1658.92" y="562.185" width="2.75" height="43.5652"/>
-  <object id="107" name="wallr" x="1706.92" y="545.457" width="3" height="44.5435"/>
-  <object id="108" name="wallr" x="1755.17" y="529.707" width="2.75" height="44.2935"/>
+  <object id="107" name="wallr" x="1706.28" y="546.093" width="3" height="44.5435"/>
+  <object id="108" name="wallr" x="1755.17" y="530.272" width="2.53261" height="43.7283"/>
   <object id="109" name="wallr" x="1882.17" y="514.778" width="4" height="326.722"/>
   <object id="110" name="wallr" x="2089.17" y="370.909" width="4.25" height="587.341"/>
   <object id="119" name="wallr" x="2394.67" y="258.375" width="2.875" height="44.375"/>
@@ -36599,8 +36599,8 @@
   <object id="128" name="walll" x="1502.42" y="754.736" width="4.625" height="204.139"/>
   <object id="130" name="walll" x="1550.17" y="578.781" width="4.75" height="172.219"/>
   <object id="131" name="walll" x="1646.81" y="562.118" width="2.72727" height="44.6087"/>
-  <object id="133" name="walll" x="1694.97" y="545.459" width="2.63636" height="45.6917"/>
-  <object id="134" name="walll" x="1742.79" y="529.751" width="2.36364" height="45.1581"/>
+  <object id="133" name="walll" x="1694.61" y="546.004" width="2.63636" height="45.6917"/>
+  <object id="134" name="walll" x="1742.36" y="530.36" width="2.36364" height="45.1581"/>
   <object id="135" name="walll" x="1774.58" y="514.699" width="3.45455" height="426.029"/>
   <object id="136" name="walll" x="1950.42" y="370.614" width="5.25" height="560.636"/>
   <object id="137" name="walll" x="2350.92" y="258.375" width="3.25" height="43.875"/>
