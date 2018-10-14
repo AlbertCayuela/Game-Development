@@ -14,6 +14,7 @@ enum LayerType {
 	LAYER_MAINGROUND2,
 	LAYER_BACKGROUND2,
 	LAYER_BACKGROUNDMOUNT,
+
 	
 
 };
@@ -23,6 +24,7 @@ struct MapLayer {
 	uint height = 0u;
 	uint* data = nullptr;
 	LayerType type = LAYER_NONE;
+	float speed;
 
 	~MapLayer() {
 		if (data != nullptr) 

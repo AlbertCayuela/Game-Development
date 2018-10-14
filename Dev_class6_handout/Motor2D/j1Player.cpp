@@ -11,7 +11,7 @@
 #include "j1Map.h"
 #include "j1Scene.h"
 #include "j1Collisions.h"
-#define SPEED 3
+#define SPEED 2
 
 
 

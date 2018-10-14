@@ -63,10 +63,10 @@ void j1Map::Draw()
 						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
 					}
 					else if (itemlayer->data->type == LAYER_BACKGROUND2) {
-						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, itemlayer->data->speed);
 					}
-					else if (itemlayer->data->type == LAYER_BACKGROUNDMOUNT) {
-						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, 1.0f);
+					else if (itemlayer->data->type == LAYER_BACKGROUNDMOUNT ) {
+						App->render->Blit(itemtileset->data->texture, coordd.x, coordd.y, &rect, itemlayer->data->speed);
 					}
 					
 				}
@@ -438,7 +438,12 @@ bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
 	const int size = layer->height*layer->width;
 
+	pugi::xml_node layer_data = node.child("data");
 
+	const char* aux = node.child("properties").child("property").attribute("name").as_string();
+
+	if (strcmp(aux, "speed") == 0)
+		layer->speed = node.child("properties").child("property").attribute("value").as_float();
 
 	layer->name = node.attribute("name").as_string();
 
