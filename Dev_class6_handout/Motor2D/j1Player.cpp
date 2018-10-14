@@ -104,13 +104,8 @@ bool j1Player::Start()
 
 	graphics = App->tex->Load("maps/spritesheet.png");
 
-
-	//prev_sec = current_sec = SDL_GetTicks();
-
-	//destroyed=false;
-	
-	//acc.x = 0;
-	//acc.y = gravity;
+	App->audio->LoadFx(App->audio->fxJump.GetString());
+	//App->audio->LoadFx(App->audio->fxDeath.GetString());
 	
 	speed.x = 0;
 	speed.y = 0;
@@ -147,14 +142,15 @@ bool j1Player::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && is_on_floor==true) 
 	{
-
+		
 		jumping = true;
 		is_on_floor = false;
-		
+		App->audio->PlayFx(1);
 	}
 	if (jumping_time == 0.0f) prev_pos.y = -1 * position.y;
 	if (jumping) 
 	{
+		
 		jumping_time += 0.1f;
 		position.y -= 8;
 		if (position.y > prev_pos.y&&jumping_time >= 1.f) 
@@ -215,12 +211,9 @@ bool j1Player::Update(float dt)
 
 bool j1Player::PostUpdate()
 {
-	
+
 	player_col->SetPos(position.x+4, position.y + 33);
-	
-	
-	
-	//App->render->DrawQuad(player_col->rect,255,0,0);
+
 	return true;
 }
 
@@ -268,13 +261,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
 	{
-		//if (speed.y >= 0)
-		//{
+		
 			position.y = (c2->rect.y - c1->rect.h)-36;
 			speed.y = 0;
 			is_on_floor = true;
-		//}
-		//player_col->SetPos(position.x, position.y);
+		
 	}
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLRIGHT) 
@@ -311,6 +302,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATH) {
 
 		player_death = true;
+		//App->audio->PlayFx(2);
 
 	}
 }

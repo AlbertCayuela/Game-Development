@@ -22,7 +22,8 @@
   </player>
   <audio>
     <music path1="audio/music/Grasslands Theme.ogg" path2="audio/music/SecondMap.ogg"/>
-  
+    <fx jump="audio/fx/Jump.wav" />
+    <fx death="audio/fx/Death.wav" />
   </audio>
 
   <file_system>

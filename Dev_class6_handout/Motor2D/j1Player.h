@@ -36,16 +36,11 @@ public:
 public:
 
 	SDL_Texture * graphics = nullptr;	
-	//SDL_Rect player_rect;
-	//float sec;
-	//uint current_sec;
-	//uint prev_sec=0;
 	fPoint speed;
-	//fPoint acc;
+	
 	
 	fPoint position;
 	fPoint prev_pos;
-	//fPoint next_pos;
 	Animation* current_animation;
 	Animation idle;
 	Animation jump_attack_right;
