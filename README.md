@@ -1,33 +1,34 @@
 #Slingshot Adventure
 
-This is a little game made by two students of the Videogame Desing and Develompent degree. It's more like a prototype because we could't fix it all but its a small plataformer with two levels, where the player can move right, left and jump.
+This is a little game made by two students of the Videogame Desing and Develompent degree. It is a small plataformer with two levels, where the player can move right, left and jump.
 The game has been made using C++, SDL and pugi libraries. 
-The maps have been made using tiled as the coliders.
+The maps have been made using tiled as the colliders.
 
  ##Controls
  
 Movement with arrow keys:
-A: walk left
-D: walk right
 
- SPACE: jump
+LEFT KEY: walk left
+RIGHT KEY: walk right
+SPACE: jump
  
- 
-F1 Start from the very first level 
-F2 Start from the beginning of the current level
-implemented:F3 Change levels
-F5 Save the current state 
-F6 Load the previous state (even across levels)
-F9 To view colliders / logic 
-F10 God Mode
+F1: Start from the very first level 
+F2: Start from the beginning of the current level
+F3: Change levels
+F5: Save the current state 
+F6: Load the previous state (even across levels)
+F9: To view colliders / logic 
+F10: God Mode
  
  ##Autors
  
  Aleix Castillo Arrià
+ GitHub Username: AleixCas95
  
  Albert Cayuela Naval
+ GitHub Username: AlbertCayuela
  
- ##Github
+ ##Github Repository
  
  https://github.com/AlbertCayuela/Game-Development
  
