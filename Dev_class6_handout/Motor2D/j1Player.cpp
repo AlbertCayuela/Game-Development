@@ -116,7 +116,7 @@ bool j1Player::Start()
 	speed.y = 0;
 
 
-	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,25,4 }, COLLIDER_PLAYER, this);
+	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,20,4 }, COLLIDER_PLAYER, this);
 
 	current_animation = &idle;
 
@@ -156,7 +156,7 @@ bool j1Player::Update(float dt)
 	if (jumping) 
 	{
 		jumping_time += 0.1f;
-		position.y -= 10;
+		position.y -= 8;
 		if (position.y > prev_pos.y&&jumping_time >= 1.f) 
 		{
 			position.y += 1;
@@ -208,7 +208,7 @@ bool j1Player::Update(float dt)
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
 	
 
-	player_col->SetPos(position.x, position.y + 33);
+	player_col->SetPos(position.x+4, position.y + 33);
 
 	return true;
 }
@@ -216,7 +216,7 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	
-	player_col->SetPos(position.x, position.y + 33);
+	player_col->SetPos(position.x+4, position.y + 33);
 	
 	
 	
