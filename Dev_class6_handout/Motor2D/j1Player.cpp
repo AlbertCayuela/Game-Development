@@ -183,6 +183,7 @@ bool j1Player::PostUpdate()
 	player_col->SetPos(position.x, position.y);
 	
 	
+	
 	//App->render->DrawQuad(player_col->rect,255,0,0);
 	return true;
 }
@@ -193,6 +194,7 @@ bool j1Player::CleanUp()
 
 	App->tex->UnLoad(graphics);
 	App->collision->EraseCollider(player_col);
+	player_col->SetPos(player_pos.x, player_pos.y);
 
 	return true;
 }
@@ -225,8 +227,8 @@ bool j1Player::Save(pugi::xml_node& save) const
 }
 //
 void j1Player::OnCollision(Collider* c1, Collider* c2)
-{	
-	
+{
+
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
 	{
@@ -238,14 +240,10 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		player_col->SetPos(position.x, position.y);
 	}
-/*
-	if(c1->type == COLLIDER_PLAYER && c2->type==COLLIDER_END)
+
+	if (c2->type == COLLIDER_END){
 		
-		if (speed.y >= 0) {
+}
 
-
-			
-		}
-
-	*/
+	
 }

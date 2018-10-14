@@ -71,7 +71,7 @@ bool j1Scene::Update(float dt)
 
 
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 
 		if (currentmap == App->player->saved_map)
 			App->LoadGame();
@@ -80,8 +80,8 @@ bool j1Scene::Update(float dt)
 			switch (App->player->saved_map) {
 			case 1:
 				currentmap = 1;
-				
-				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+
+				App->fadetoblack->FadeToBlack(this, this, 1.0f);
 				App->map->CleanUp();
 				App->collision->ColliderCleanUp();
 				App->collision->CleanUp();
@@ -96,7 +96,7 @@ bool j1Scene::Update(float dt)
 				break;
 			case 2:
 				currentmap = 2;
-				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+				App->fadetoblack->FadeToBlack(this, this, 1.0f);
 				App->map->CleanUp();
 				App->collision->CleanUp();
 				App->collision->ColliderCleanUp();
@@ -114,72 +114,147 @@ bool j1Scene::Update(float dt)
 			}
 		}
 
-	}
+	}*/
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
-
+	//cahnge to map1
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (currentmap == 1) {
-			
-			App->fadetoblack->FadeToBlack(this, this, 3.0f);
+
+			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
 			App->map->CleanUp();
-			App->collision->ColliderCleanUp();
-			App->map->Load("maps/dirt_map.tmx");
+			App->player->Disable();
+			App->map->Load("maps/cave_map.tmx");
 			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
 			App->map->loadcollision(colnode);
+			App->player->Enable();
+			App->player->position.x = 50.f;
+			App->player->position.y = 600.f;
 			currentmap = 2;
-			
+
 			is_fade = true;
 		}
 		else if (currentmap == 2) {
-			App->fadetoblack->FadeToBlack(this, this, 3.0f);
+			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
 			App->map->CleanUp();
 			App->collision->ColliderCleanUp();
-			App->map->Load("maps/Cave_map.tmx");
+			App->player->Disable();
+			App->map->Load("maps/cave_map.tmx");
 			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
 			App->map->loadcollision(colnode);
+			App->player->Enable();
+			App->player->position.x = 50.f;
+			App->player->position.y = 600.f;
+
 			currentmap = 1;
 
 			is_fade = true;
-	}
+		}
 
 	}
-	//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		//App->render->camera.y += 1;
-
-	//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		//App->render->camera.y -= 1;
-
-	//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		//App->render->camera.x += 1;
-
-	//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		//App->render->camera.x -= 1;
-	if (App->render->camera.x + CAMERA_LEFT_MARGIN > App->player->position.x)
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
-		App->render->camera.x = 0;
+		if (currentmap == 1) {
+
+			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+			App->map->CleanUp();
+			App->player->Disable();
+			App->map->Load("maps/cave_map.tmx");
+			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+			App->map->loadcollision(colnode);
+			App->player->Enable();
+			App->player->position.x = 50.f;
+			App->player->position.y = 600.f;
+			currentmap = 1;
+
+			is_fade = true;
+		}
+		else if (currentmap == 2) {
+			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+			App->map->CleanUp();
+			App->collision->ColliderCleanUp();
+			App->player->Disable();
+			App->map->Load("maps/dirt_map.tmx");
+			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+			App->map->loadcollision(colnode);
+			App->player->Enable();
+			App->player->position.x = 50.f;
+			App->player->position.y = 800.f;
+
+			currentmap = 2;
+
+			is_fade = true;
+		}
+
 	}
-	else
-	{
-		App->render->camera.x = ((-App->player->position.x) + CAMERA_LEFT_MARGIN)*App->win->GetScale();
+		//changemap
+		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		{
+			if (currentmap == 1) {
+
+				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+				App->map->CleanUp();
+				App->player->Disable();
+				App->map->Load("maps/dirt_map.tmx");
+				pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+				App->map->loadcollision(colnode);
+				App->player->Enable();
+				currentmap = 2;
+
+				is_fade = true;
+			}
+			else if (currentmap == 2) {
+				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+				App->map->CleanUp();
+				App->collision->ColliderCleanUp();
+				App->player->Disable();
+				App->map->Load("maps/Cave_map.tmx");
+				pugi::xml_node colnode = map_file.child("map").child("objectgroup");
+				App->map->loadcollision(colnode);
+				App->player->Enable();
+
+				currentmap = 1;
+
+				is_fade = true;
+			}
+
+		}
+		//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			//App->render->camera.y += 1;
+
+		//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			//App->render->camera.y -= 1;
+
+		//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			//App->render->camera.x += 1;
+
+		//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			//App->render->camera.x -= 1;
+		if (App->render->camera.x + CAMERA_LEFT_MARGIN > App->player->position.x)
+		{
+			App->render->camera.x = 0;
+		}
+		else
+		{
+			App->render->camera.x = ((-App->player->position.x) + CAMERA_LEFT_MARGIN)*App->win->GetScale();
+		}
+		App->render->camera.y = (-App->player->position.y) - 200;
+
+		App->map->Draw();
+
+		int x, y;
+		App->input->GetMousePosition(x, y);
+		iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
+		p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
+			App->map->data.width, App->map->data.height,
+			App->map->data.tile_width, App->map->data.tile_height,
+			App->map->data.tilesets.count(),
+			map_coordinates.x, map_coordinates.y);
+
+		App->win->SetTitle(title.GetString());
+		return true;
 	}
-	App->render->camera.y = (-App->player->position.y)-200;
-
-	App->map->Draw();
-
-	int x, y;
-	App->input->GetMousePosition(x, y);
-	iPoint map_coordinates = App->map->WorldToMap(x - App->render->camera.x, y - App->render->camera.y);
-	p2SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d Tile:%d,%d",
-					App->map->data.width, App->map->data.height,
-					App->map->data.tile_width, App->map->data.tile_height,
-					App->map->data.tilesets.count(),
-					map_coordinates.x, map_coordinates.y);
-
-	App->win->SetTitle(title.GetString());
-	return true;
-}
 
 // Called each loop iteration
 bool j1Scene::PostUpdate()

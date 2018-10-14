@@ -189,7 +189,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-
+	App->collision->ColliderCleanUp();
 	// Remove all layers
 
 	p2List_item<MapLayer*>* item_layer;
