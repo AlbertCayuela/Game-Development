@@ -9,15 +9,23 @@ The maps have been made using tiled as the colliders.
 Movement with arrow keys:
 
 LEFT KEY: walk left
+
 RIGHT KEY: walk right
+
 SPACE: jump
  
-F1: Start from the very first level 
+F1: Start from the very first level
+
 F2: Start from the beginning of the current level
+
 F3: Change levels
+
 F5: Save the current state 
+
 F6: Load the previous state (even across levels)
+
 F9: To view colliders / logic 
+
 F10: God Mode
  
  ## Autors
