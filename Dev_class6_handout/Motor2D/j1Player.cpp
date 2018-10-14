@@ -213,8 +213,8 @@ bool j1Player::Save(pugi::xml_node& save) const
 bool j1Player::Load(pugi::xml_node& save)
 {
 
-	position.x = save.child("position").attribute("x").as_float();
-	position.y = save.child("position").attribute("y").as_float();
+	position.x = save.child("position").attribute("x").as_float()+2;
+	position.y = save.child("position").attribute("y").as_float()-10;
 
 
 	return true;

@@ -9,11 +9,11 @@
 	<map />
 	<scene />
 	<player>
-		<position x="593" y="732" />
+		<position x="918" y="699" />
 	</player>
 	<:anonymous />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-986" y="-928" />
+		<camera x="-1636" y="-895" />
 	</renderer>
 </game_state>
