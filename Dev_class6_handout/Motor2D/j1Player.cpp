@@ -238,7 +238,14 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		}
 		player_col->SetPos(position.x, position.y);
 	}
+/*
+	if(c1->type == COLLIDER_PLAYER && c2->type==COLLIDER_END)
+		
+		if (speed.y >= 0) {
 
 
-	
+			
+		}
+
+	*/
 }

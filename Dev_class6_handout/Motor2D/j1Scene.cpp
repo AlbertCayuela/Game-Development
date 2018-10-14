@@ -37,7 +37,7 @@ bool j1Scene::Start()
 {
 	
 
-	App->map->Load("maps/dirt_map.tmx");
+	App->map->Load("maps/cave_map.tmx");
 	App->audio->PlayMusic(App->audio->musicmap1.GetString());
 	App->audio->MusicVolume(App->audio->volume);
 	currentmap = 1;
@@ -69,11 +69,7 @@ bool j1Scene::Update(float dt)
 		App->audio->VolumeChange(volumechange);
 	}
 
-	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
-		App->LoadGame();
 
-	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		App->SaveGame();
 
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 
@@ -83,28 +79,35 @@ bool j1Scene::Update(float dt)
 		{
 			switch (App->player->saved_map) {
 			case 1:
-				curr_map = MAP_1;
+				currentmap = 1;
+				
+				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+				App->map->CleanUp();
 				App->collision->ColliderCleanUp();
-				App->fadetoblack->FadeToBlack(this, this, 3.0f);
-				App->map->CleanUp();
-				App->audio->CleanUp();
-				App->map->Load("maps/dirt_map.tmx");
-				App->player->player_pos.x = App->player->last_saved_pos.x;
-				App->player->player_pos.y = App->player->last_saved_pos.y;
-				is_fade = true;
-				break;
-			case 2:
-				curr_map = MAP_1;
-				App->fadetoblack->FadeToBlack(this, this, 3.0f);
-				App->map->CleanUp();
 				App->collision->CleanUp();
 				App->audio->CleanUp();
-				App->map->Load("Cave_map.tmx");
+				App->map->Load("maps/Cave_map.tmx");
 				App->audio->PlayMusic(App->audio->musicmap2.GetString());
 				App->audio->MusicVolume(App->audio->volume);
 				App->player->player_pos.x = App->player->last_saved_pos.x;
 				App->player->player_pos.y = App->player->last_saved_pos.y;
 				is_fade = true;
+				currentmap = 2;
+				break;
+			case 2:
+				currentmap = 2;
+				App->fadetoblack->FadeToBlack(this, this, 3.0f);
+				App->map->CleanUp();
+				App->collision->CleanUp();
+				App->collision->ColliderCleanUp();
+				App->audio->CleanUp();
+				App->map->Load("maps/dirt_map.tmx");
+				App->audio->PlayMusic(App->audio->musicmap2.GetString());
+				App->audio->MusicVolume(App->audio->volume);
+				App->player->player_pos.x = App->player->last_saved_pos.x;
+				App->player->player_pos.y = App->player->last_saved_pos.y;
+				is_fade = true;
+				currentmap = 1;
 				break;
 			default:
 				break;
@@ -118,9 +121,10 @@ bool j1Scene::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		if (currentmap == 1) {
-			App->collision->ColliderCleanUp();
+			
 			App->fadetoblack->FadeToBlack(this, this, 3.0f);
 			App->map->CleanUp();
+			App->collision->ColliderCleanUp();
 			App->map->Load("maps/dirt_map.tmx");
 			pugi::xml_node colnode = map_file.child("map").child("objectgroup");
 			App->map->loadcollision(colnode);

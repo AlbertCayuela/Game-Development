@@ -41,7 +41,7 @@ public:
 
 public:
 	uint currentmap = 0;
-	CurrentMap curr_map = NO_MAP;
+	
 private:
 	bool is_fade = false;
 	pugi::xml_document	map_file;
