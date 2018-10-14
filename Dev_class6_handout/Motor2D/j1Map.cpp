@@ -165,8 +165,6 @@ void j1Map::loadcollision(pugi::xml_node &node) {
 		if (checkcol == "player")
 			App->collision->AddCollider(collision, COLLIDER_PLAYER);
 
-		
-
 		if (checkcol == "end")
 			App->collision->AddCollider(collision, COLLIDER_END);
 

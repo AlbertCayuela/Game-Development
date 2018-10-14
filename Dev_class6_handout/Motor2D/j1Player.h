@@ -14,31 +14,7 @@ struct Collider;
 
 class j1Player : public j1Module
 {
-	enum class STATE 
-	{
-		IDLE=1,
-		WALKING_RIGHT,
-		WALKING_LEFT,
-		JUMPING,
-		JUMPING_RIGHT,
-		JUMPING_LEFT,
-		FALLING,
-		FALLING_RIGHT,
-		FALLING_LEFT,
-		NONE
-	};
-
-	enum class DIRECTION
-	{
-
-		IDLE,
-		TO_RIGHT,
-		TO_LEFT,
-		TO_UP,
-		TO_DOWN,
-		NONE
-
-	};
+	
 
 public:
 	j1Player();
@@ -99,6 +75,12 @@ public:
 	iPoint collider_offset = { 0,0 };
 	bool player_died = false;
 	bool change_map = false;
+	bool godmode = false;
+	
+private:
+
+	pugi::xml_document	map_file;
+
 };
 
 #endif

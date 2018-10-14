@@ -137,18 +137,19 @@ bool j1Player::Update(float dt)
 		//speed.x += 3;
 		position.x += SPEED;
 		current_animation = &walking_right;
-		is_on_floor=true;
+		
 	}
 	else if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
 	{
 		position.x -= SPEED;
 		current_animation = &walking_left;
-		is_on_floor = true;
+		
 	}
-	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && is_on_floor==true) 
 	{
 
 		jumping = true;
+		is_on_floor = false;
 		
 	}
 	if (jumping_time == 0.0f) prev_pos.y = -1 * position.y;
@@ -164,9 +165,44 @@ bool j1Player::Update(float dt)
 			falling = true;
 		}
 	}
+
 	if(falling)current_animation = &jump_right;
 	
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 
+			godmode = !godmode;
+		}
+		if (godmode == true) {
+			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			{
+				//speed.x += 3;
+				position.x += SPEED;
+				current_animation = &walking_right;
+
+			}
+			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			{
+				position.x -= SPEED;
+				current_animation = &walking_left;
+
+			}
+			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			{
+				//speed.x += 3;
+				position.y += SPEED;
+				current_animation = &jump_right;
+
+			}
+			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			{
+				position.y -= SPEED;
+				current_animation = &jump_right;
+
+			}
+
+		}
+
+	
 	
 	
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
@@ -241,9 +277,18 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 		player_col->SetPos(position.x, position.y);
 	}
 
-	if (c2->type == COLLIDER_END){
-		
-}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_END)
+	{
+		/*	if (speed.y >= 0)
+			{
 
-	
+
+			}
+			player_col->SetPos(position.x, position.y);
+		}
+		*/
+
+	}
 }
+	
+
