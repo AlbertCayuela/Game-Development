@@ -12,6 +12,15 @@ D: walk right
 
  SPACE: jump
  
+ 
+F1 Start from the very first level 
+F2 Start from the beginning of the current level
+implemented:F3 Change levels
+F5 Save the current state 
+F6 Load the previous state (even across levels)
+F9 To view colliders / logic 
+F10 God Mode
+ 
  ##Autors
  
  Aleix Castillo Arrià
