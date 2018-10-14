@@ -45,6 +45,7 @@ public:
 private:
 	bool is_fade = false;
 	pugi::xml_document	map_file;
+	bool volumechange = false;
 };
 
 #endif // __j1SCENE_H__

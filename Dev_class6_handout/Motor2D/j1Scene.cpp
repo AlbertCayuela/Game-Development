@@ -38,6 +38,8 @@ bool j1Scene::Start()
 	
 
 	App->map->Load("maps/dirt_map.tmx");
+	App->audio->PlayMusic(App->audio->musicmap1.GetString());
+	App->audio->MusicVolume(App->audio->volume);
 	currentmap = 1;
 	
 	
@@ -55,13 +57,25 @@ bool j1Scene::PreUpdate()
 // Called each loop iteration
 bool j1Scene::Update(float dt)
 {
+
+
+	if (App->input->GetKey(SDL_SCANCODE_KP_PLUS) == KEY_DOWN) {
+		volumechange = true;
+		App->audio->VolumeChange(volumechange);
+	}
+
+	else if (App->input->GetKey(SDL_SCANCODE_KP_MINUS) == KEY_DOWN) {
+		volumechange = false;
+		App->audio->VolumeChange(volumechange);
+	}
+
 	if(App->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		App->LoadGame();
 
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 
 		if (currentmap == App->player->saved_map)
 			App->LoadGame();
@@ -73,6 +87,7 @@ bool j1Scene::Update(float dt)
 				App->collision->ColliderCleanUp();
 				App->fadetoblack->FadeToBlack(this, this, 3.0f);
 				App->map->CleanUp();
+				App->audio->CleanUp();
 				App->map->Load("maps/dirt_map.tmx");
 				App->player->player_pos.x = App->player->last_saved_pos.x;
 				App->player->player_pos.y = App->player->last_saved_pos.y;
@@ -83,7 +98,10 @@ bool j1Scene::Update(float dt)
 				App->fadetoblack->FadeToBlack(this, this, 3.0f);
 				App->map->CleanUp();
 				App->collision->CleanUp();
+				App->audio->CleanUp();
 				App->map->Load("Cave_map.tmx");
+				App->audio->PlayMusic(App->audio->musicmap2.GetString());
+				App->audio->MusicVolume(App->audio->volume);
 				App->player->player_pos.x = App->player->last_saved_pos.x;
 				App->player->player_pos.y = App->player->last_saved_pos.y;
 				is_fade = true;
@@ -93,7 +111,7 @@ bool j1Scene::Update(float dt)
 			}
 		}
 
-	}*/
+	}
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 

@@ -31,6 +31,14 @@ public:
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool Load(pugi::xml_node& node);
+	bool Save(pugi::xml_node& node)const;
+	void MusicVolume(uint volume);
+	void VolumeChange(bool volumechange);
+	uint volume = 50;
+
+	p2SString musicmap1;
+	p2SString musicmap2;
 
 private:
 

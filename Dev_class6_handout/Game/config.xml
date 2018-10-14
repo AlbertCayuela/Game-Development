@@ -20,7 +20,10 @@
   <player>
     <initial_attributes x=" 50.f" y="600.f"/>
   </player>
- 
+  <audio>
+    <music path1="audio/music/Grasslands Theme.ogg" path2="audio/music/SecondMap.ogg"/>
+  
+  </audio>
 
   <file_system>
     <path>data.zip</path>
