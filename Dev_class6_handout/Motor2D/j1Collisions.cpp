@@ -138,6 +138,7 @@ bool j1Collisions::Update(float dt)
 	
 }
 
+//draw colliders
 void j1Collisions::DebugDraw()
 {
 	if (App->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {

@@ -17,6 +17,7 @@
 
 j1Player::j1Player()
 {
+	//create player
 	name.create("player");
 
 	//animations
@@ -72,7 +73,6 @@ bool j1Player::Start()
 	graphics = App->tex->Load("maps/spritesheet.png");
 
 	App->audio->LoadFx(App->audio->fxJump.GetString());
-	//App->audio->LoadFx(App->audio->fxDeath.GetString());
 	
 	speed.x = 0;
 	speed.y = 0;
@@ -141,21 +141,6 @@ bool j1Player::Update(float dt)
 		else if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && godmode)godmode = false;
 		if (godmode) {
 
-		
-
-			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			{
-				
-				position.x += SPEED;
-				current_animation = &walking_right;
-
-			}
-			if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			{
-				position.x -= SPEED;
-				current_animation = &walking_left;
-
-			}
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			{
 				
@@ -171,7 +156,7 @@ bool j1Player::Update(float dt)
 			}
 
 		}
-
+		//godmode gravity
 		if (!godmode)constant_y_speed = 4;
 		else if (godmode)constant_y_speed = 0;
 
@@ -194,7 +179,7 @@ bool j1Player::CleanUp()
 
 	App->tex->UnLoad(graphics);
 	App->collision->EraseCollider(player_col);
-	//player_col->SetPos(player_pos.x, player_pos.y);
+
 
 	return true;
 }
@@ -223,53 +208,42 @@ bool j1Player::Load(pugi::xml_node& save)
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 
-
+	//collision between player and top_collider/floor
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
 	{
 		
 			position.y = (c2->rect.y - c1->rect.h)-36;
 			speed.y = 0;
+			current_animation = &idle;
 			is_on_floor = true;
 		
 	}
 
+	//collision between player and right_collider
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLRIGHT) 
 	{
 		position.x = (c2->rect.x+c2->rect.w);
 		speed.x = 0;
 	}
 
+	//collision between player and left_collider
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLLEFT) 
 	{
 		position.x = (c2->rect.x - c1->rect.w);
 		speed.x = 0;
 	}
 	
+	//collision between player and end_collider
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_END)change_map = true;
 
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_END)
-	{
-			
-			
-		change_map = true;
+	//collision between player and win_collider
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WIN) player_win = true;
 
-		
-			
-	}
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WIN)
-	{
+	//collision between player and death_collider
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATH) 	player_death = true;
+	
 
-
-		player_win = true;
-
-
-
-	}
-	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATH) {
-
-		player_death = true;
-		//App->audio->PlayFx(2);
-
-	}
+	
 }
 	
 

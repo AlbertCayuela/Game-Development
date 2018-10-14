@@ -37,10 +37,10 @@ public:
 	void VolumeChange(bool volumechange);
 	uint volume = 50;
 
+	//fx and music
 	p2SString musicmap1;
-	p2SString musicmap2;
 	p2SString fxJump;
-	//p2SString fxDeath;
+	
 
 private:
 

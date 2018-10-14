@@ -63,9 +63,6 @@ public:
 
 public:
 
-	
-	/*fPoint last_saved_pos = { 0.0f,0.0f };
-	fPoint player_pos = { 50.0f,600.0f };*/
 	int saved_map = 1;
 	iPoint collider_offset = { 0,0 };
 	bool player_death = false;

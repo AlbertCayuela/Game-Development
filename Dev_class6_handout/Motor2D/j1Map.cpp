@@ -36,7 +36,7 @@ void j1Map::Draw()
 		return;
 
 	p2List_item<TileSet*>* itemtileset;
-	itemtileset = data.tilesets.end;
+	itemtileset = data.tilesets.end;//get last tileset
 	p2List_item<MapLayer*>* itemlayer;
 	itemlayer = data.maplayers.start;
 
@@ -72,8 +72,10 @@ void j1Map::Draw()
 				}
 
 			}
+			//next layer
 			itemlayer = itemlayer->next;
 		}
+		//previous tileset(start from the end)
 		itemtileset = itemtileset->prev;
 	}
 
@@ -193,7 +195,7 @@ bool j1Map::CleanUp()
 	}
 	data.tilesets.clear();
 
-	App->collision->ColliderCleanUp();
+	App->collision->ColliderCleanUp();//clean collider on cleanup map
 	// Remove all layers
 
 	p2List_item<MapLayer*>* item_layer;
@@ -262,7 +264,7 @@ bool j1Map::Load(const char* file_name)
 		if(ret == true)
 			data.maplayers.add(lay);
 	}
-
+	//load collision 
 	pugi::xml_node colnode=map_file.child("map").child("objectgroup");
 
 
@@ -430,6 +432,7 @@ bool j1Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
+//load layers
 bool j1Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
 

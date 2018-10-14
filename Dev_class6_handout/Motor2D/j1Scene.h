@@ -5,13 +5,6 @@
 
 struct SDL_Texture;
 
-enum CurrentMap
-{
-	NO_MAP = 0,
-	MAP_1,
-	MAP_2,
-};
-
 class j1Scene : public j1Module
 {
 public:
@@ -43,7 +36,7 @@ public:
 	uint currentmap = 0;
 	
 private:
-	bool is_fade = false;
+	
 	pugi::xml_document	map_file;
 	bool volumechange = false;
 };

@@ -78,13 +78,12 @@ bool j1Scene::Update(float dt)
 	//load
 	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		App->LoadGame("save_game.xml");
-	//cahnge to map1
+	//change to map1
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		
+		//cleanup map colliders and reset player when map 1 is loaded
 		if (currentmap == 1) {
 
-			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
 			App->map->CleanUp();
 			App->player->Disable();
 			App->map->Load("maps/cave_map.tmx");
@@ -95,10 +94,10 @@ bool j1Scene::Update(float dt)
 			App->player->position.y = 600.f;
 			currentmap = 2;
 			
-			is_fade = true;
+			
 		}
 		else if (currentmap == 2) {
-			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+	
 			App->map->CleanUp();
 			App->collision->ColliderCleanUp();
 			App->player->Disable();
@@ -111,16 +110,16 @@ bool j1Scene::Update(float dt)
 
 			currentmap = 1;
 
-			is_fade = true;
+			
 		}
 
 	}
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->player->player_death==true)
 	{
+		//cleanup map colliders and reset player when map 1 and 2 are loaded and death condition detected
 		App->player->player_death = false;
 		if (currentmap == 1) {
 
-			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
 			App->map->CleanUp();
 			App->player->Disable();
 			App->map->Load("maps/cave_map.tmx");
@@ -131,10 +130,10 @@ bool j1Scene::Update(float dt)
 			App->player->position.y = 600.f;
 			currentmap = 1;
 
-			is_fade = true;
+			
 		}
 		else if (currentmap == 2) {
-			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+			
 			App->map->CleanUp();
 			App->collision->ColliderCleanUp();
 			App->player->Disable();
@@ -147,7 +146,7 @@ bool j1Scene::Update(float dt)
 
 			currentmap = 2;
 
-			is_fade = true;
+			
 		}
 
 	}
@@ -158,7 +157,6 @@ bool j1Scene::Update(float dt)
 			App->player->player_win = false;
 			if (currentmap == 1) {
 
-				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
 				App->map->CleanUp();
 				App->player->Disable();
 				App->map->Load("maps/dirt_map.tmx");
@@ -169,10 +167,10 @@ bool j1Scene::Update(float dt)
 				App->player->position.y = 800.f;
 				currentmap = 2;
 
-				is_fade = true;
+				
 			}
 			else if (currentmap == 2) {
-				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+				
 				currentmap = 1;
 				App->map->CleanUp();
 				App->collision->ColliderCleanUp();
@@ -186,22 +184,12 @@ bool j1Scene::Update(float dt)
 
 				currentmap = 1;
 
-				is_fade = true;
+				
 			}
 
 		}
 		
-		//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			//App->render->camera.y += 1;
-
-		//if(App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			//App->render->camera.y -= 1;
-
-		//if(App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			//App->render->camera.x += 1;
-
-		//if(App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			//App->render->camera.x -= 1;
+	//camera start following player after he is at x+100
 		if (App->render->camera.x + CAMERA_LEFT_MARGIN > App->player->position.x)
 		{
 			App->render->camera.x = 0;

@@ -25,7 +25,7 @@ struct MapLayer {
 	LayerType type = LAYER_NONE;
 
 	~MapLayer() {
-		if (data != nullptr) // Si ponemos != NULL, llamamos a RELEASE. Sino podemos != nullptr y hacer delete
+		if (data != nullptr) 
 			delete[] data;
 	}
 	inline uint Get(int x, int y) const;
@@ -34,7 +34,7 @@ struct MapLayer {
 // ----------------------------------------------------
 struct TileSet
 {
-	// TODO 7: Create a method that receives a tile id and returns it's Rectfind the Rect associated with a specific tile id
+	
 	SDL_Rect GetTileRect(int id) const;
 
 	p2SString			name;
@@ -111,10 +111,7 @@ private:
 public:
 
 	MapData data;
-	//MapLayer layer_data;
-	iPoint spawn_pos = { 0, 0 };
-
-
+	
 private:
 
 	pugi::xml_document	map_file;
