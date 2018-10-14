@@ -20,6 +20,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_FLOOR][COLLIDER_WIN] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_WALLRIGHT] = false;
 
+
 	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
@@ -32,7 +33,9 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
 	matrix[COLLIDER_PLAYER][COLLIDER_END] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WIN] = true;
-	matrix[COLLIDER_PLAYER][COLLIDER_WALLRIGHT] = false;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALLRIGHT] = true;
+	matrix[COLLIDER_PLAYER][COLLIDER_WALLLEFT] = true;
+
 
 	matrix[COLLIDER_END][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_END][COLLIDER_DEATH] = false;

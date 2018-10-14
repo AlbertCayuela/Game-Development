@@ -268,14 +268,27 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_FLOOR)
 	{
-		if (speed.y >= 0)
-		{
+		//if (speed.y >= 0)
+		//{
 			position.y = (c2->rect.y - c1->rect.h)-36;
 			speed.y = 0;
 			is_on_floor = true;
-		}
-		player_col->SetPos(position.x, position.y);
+		//}
+		//player_col->SetPos(position.x, position.y);
 	}
+
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLRIGHT) 
+	{
+		position.x = (c2->rect.x+c2->rect.w);
+		speed.x = 0;
+	}
+
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLLEFT) 
+	{
+		position.x = (c2->rect.x - c1->rect.w);
+		speed.x = 0;
+	}
+	
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_END)
 	{
