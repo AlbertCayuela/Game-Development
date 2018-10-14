@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="60" tilewidth="16" tileheight="16" nextobjectid="294">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="200" height="60" tilewidth="16" tileheight="16" nextobjectid="300">
  <tileset firstgid="1" name="Tileset4" tilewidth="16" tileheight="16" tilecount="144" columns="16">
   <image source="2015-02-26 [DB32](Generic Platformer)(Tileset).png" trans="5fcde4" width="256" height="144"/>
  </tileset>
@@ -24171,5 +24171,10 @@
   <object id="288" name="wallr" x="2265.89" y="418.242" width="6" height="13"/>
   <object id="289" name="wallr" x="2362.39" y="483.742" width="5" height="11.5"/>
   <object id="290" name="wallr" x="2360.39" y="420.742" width="6.5" height="12"/>
+  <object id="294" name="death" x="453.394" y="879.242" width="233" height="81"/>
+  <object id="295" name="death" x="852.394" y="882.242" width="74" height="77"/>
+  <object id="296" name="death" x="1047.39" y="881.242" width="163" height="81"/>
+  <object id="297" name="death" x="1508.39" y="864.242" width="309" height="95"/>
+  <object id="298" name="death" x="2099.39" y="796.242" width="296" height="71"/>
  </objectgroup>
 </map>

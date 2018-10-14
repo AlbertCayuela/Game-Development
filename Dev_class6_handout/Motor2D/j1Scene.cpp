@@ -154,8 +154,9 @@ bool j1Scene::Update(float dt)
 		}
 
 	}
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN || App->player->player_death==true)
 	{
+		App->player->player_death = false;
 		if (currentmap == 1) {
 
 			//App->fadetoblack->FadeToBlack(this, this, 1.0f);

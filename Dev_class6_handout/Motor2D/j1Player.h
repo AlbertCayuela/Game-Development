@@ -73,7 +73,7 @@ public:
 	fPoint player_pos = { 50.0f,600.0f };
 	int saved_map = 1;
 	iPoint collider_offset = { 0,0 };
-	bool player_died = false;
+	bool player_death = false;
 	bool player_win = false;
 	bool change_map = false;
 	bool godmode = false;

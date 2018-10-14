@@ -308,6 +308,11 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 
 	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_DEATH) {
+
+		player_death = true;
+
+	}
 }
 	
 
