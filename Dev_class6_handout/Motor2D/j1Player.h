@@ -74,6 +74,7 @@ public:
 	int saved_map = 1;
 	iPoint collider_offset = { 0,0 };
 	bool player_died = false;
+	bool player_win = false;
 	bool change_map = false;
 	bool godmode = false;
 	

@@ -279,14 +279,20 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_END)
 	{
-		/*	if (speed.y >= 0)
-			{
+			
+			
+		change_map = true;
+
+		
+			
+	}
+	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WIN)
+	{
 
 
-			}
-			player_col->SetPos(position.x, position.y);
-		}
-		*/
+		player_win = true;
+
+
 
 	}
 }

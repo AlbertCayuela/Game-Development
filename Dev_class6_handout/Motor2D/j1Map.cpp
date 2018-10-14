@@ -168,6 +168,9 @@ void j1Map::loadcollision(pugi::xml_node &node) {
 		if (checkcol == "end")
 			App->collision->AddCollider(collision, COLLIDER_END);
 
+		if (checkcol == "win")
+			App->collision->AddCollider(collision, COLLIDER_WIN);
+
 	}
 }
 

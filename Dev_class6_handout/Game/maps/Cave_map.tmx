@@ -24094,6 +24094,5 @@
   <object id="129" name="floor" x="1072.73" y="686.242" width="46.6667" height="14.6667"/>
   <object id="130" name="start" x="55.3939" y="584.242" width="27" height="43"/>
   <object id="131" name="end" x="2729.39" y="354.242" width="27" height="29"/>
-  <object id="133" name="end" x="709.394" y="502.242" width="32" height="33"/>
  </objectgroup>
 </map>

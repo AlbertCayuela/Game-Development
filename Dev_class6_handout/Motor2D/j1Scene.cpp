@@ -120,6 +120,7 @@ bool j1Scene::Update(float dt)
 	//cahnge to map1
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
+		
 		if (currentmap == 1) {
 
 			//App->fadetoblack->FadeToBlack(this, this, 1.0f);
@@ -132,7 +133,7 @@ bool j1Scene::Update(float dt)
 			App->player->position.x = 50.f;
 			App->player->position.y = 600.f;
 			currentmap = 2;
-
+			
 			is_fade = true;
 		}
 		else if (currentmap == 2) {
@@ -189,8 +190,10 @@ bool j1Scene::Update(float dt)
 
 	}
 		//changemap
-		if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (App->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN || App->player->change_map == true && currentmap == 1 || App->player->player_win == true && currentmap ==2)
 		{
+			App->player->change_map = false;
+			App->player->player_win = false;
 			if (currentmap == 1) {
 
 				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
@@ -200,12 +203,15 @@ bool j1Scene::Update(float dt)
 				pugi::xml_node colnode = map_file.child("map").child("objectgroup");
 				App->map->loadcollision(colnode);
 				App->player->Enable();
+				App->player->position.x = 50.f;
+				App->player->position.y = 800.f;
 				currentmap = 2;
 
 				is_fade = true;
 			}
 			else if (currentmap == 2) {
 				//App->fadetoblack->FadeToBlack(this, this, 1.0f);
+				currentmap = 1;
 				App->map->CleanUp();
 				App->collision->ColliderCleanUp();
 				App->player->Disable();
@@ -213,6 +219,8 @@ bool j1Scene::Update(float dt)
 				pugi::xml_node colnode = map_file.child("map").child("objectgroup");
 				App->map->loadcollision(colnode);
 				App->player->Enable();
+				App->player->position.x = 50.f;
+				App->player->position.y = 600.f;
 
 				currentmap = 1;
 
@@ -220,6 +228,7 @@ bool j1Scene::Update(float dt)
 			}
 
 		}
+		
 		//if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			//App->render->camera.y += 1;
 
