@@ -332,9 +332,11 @@ bool j1App::LoadGameNow()
 			item = item->next;
 		}
 
-		data.reset();
-		if(ret == true)
+		
+		if (ret == true) {
+			
 			LOG("...finished loading");
+		}
 		else
 			LOG("...loading process interrupted with error on module %s", (item != NULL) ? item->data->name.GetString() : "unknown");
 	}
@@ -367,9 +369,7 @@ bool j1App::SavegameNow() const
 
 	if(ret == true)
 	{
-		std::stringstream stream;
-		data.save(stream);
-
+		data.save_file(save_game.GetString());
 		// we are done, so write data to disk
 //		fs->Save(save_game.GetString(), stream.str().c_str(), stream.str().length());
 		LOG("... finished saving", save_game.GetString());

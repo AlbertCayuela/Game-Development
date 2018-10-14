@@ -54,9 +54,6 @@ j1Player::j1Player()
 
 
 }
-j1Player::~j1Player()
-{
-}
 
 bool j1Player::Awake(pugi::xml_node& node)
 {
