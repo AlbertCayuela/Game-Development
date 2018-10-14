@@ -71,52 +71,13 @@ bool j1Scene::Update(float dt)
 
 
 
-	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
-
-		if (currentmap == App->player->saved_map)
-			App->LoadGame();
-		else
-		{
-			switch (App->player->saved_map) {
-			case 1:
-				currentmap = 1;
-
-				App->fadetoblack->FadeToBlack(this, this, 1.0f);
-				App->map->CleanUp();
-				App->collision->ColliderCleanUp();
-				App->collision->CleanUp();
-				App->audio->CleanUp();
-				App->map->Load("maps/Cave_map.tmx");
-				App->audio->PlayMusic(App->audio->musicmap2.GetString());
-				App->audio->MusicVolume(App->audio->volume);
-				App->player->player_pos.x = App->player->last_saved_pos.x;
-				App->player->player_pos.y = App->player->last_saved_pos.y;
-				is_fade = true;
-				currentmap = 2;
-				break;
-			case 2:
-				currentmap = 2;
-				App->fadetoblack->FadeToBlack(this, this, 1.0f);
-				App->map->CleanUp();
-				App->collision->CleanUp();
-				App->collision->ColliderCleanUp();
-				App->audio->CleanUp();
-				App->map->Load("maps/dirt_map.tmx");
-				App->audio->PlayMusic(App->audio->musicmap2.GetString());
-				App->audio->MusicVolume(App->audio->volume);
-				App->player->player_pos.x = App->player->last_saved_pos.x;
-				App->player->player_pos.y = App->player->last_saved_pos.y;
-				is_fade = true;
-				currentmap = 1;
-				break;
-			default:
-				break;
-			}
-		}
-
-	}*/
+	//save
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		App->SaveGame();
+		App->SaveGame("save_game.xml");
+
+	//load
+	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		App->LoadGame("save_game.xml");
 	//cahnge to map1
 	if (App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{

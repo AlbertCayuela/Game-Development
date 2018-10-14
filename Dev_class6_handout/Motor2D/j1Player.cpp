@@ -14,6 +14,7 @@
 #define SPEED 3
 
 
+
 j1Player::j1Player()
 {
 	name.create("player");
@@ -79,6 +80,7 @@ bool j1Player::Start()
 	speed.x = 0;
 	speed.y = 0;
 
+	constant_y_speed = 4;
 
 	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,20,4 }, COLLIDER_PLAYER, this);
 
@@ -92,7 +94,7 @@ bool j1Player::Update(float dt)
 {
 
 	position.x += speed.x;
-	position.y += speed.y+4;
+	position.y += speed.y+constant_y_speed;
 	
 	falling = false;
 	
@@ -140,10 +142,13 @@ bool j1Player::Update(float dt)
 
 			godmode = !godmode;
 		}
-		if (godmode == true) {
+		if (godmode) {
+
+			constant_y_speed = 0;
+
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			{
-				//speed.x += 3;
+				
 				position.x += SPEED;
 				current_animation = &walking_right;
 
@@ -156,7 +161,7 @@ bool j1Player::Update(float dt)
 			}
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			{
-				//speed.x += 3;
+				
 				position.y += SPEED;
 				current_animation = &jump_right;
 
@@ -189,38 +194,32 @@ bool j1Player::CleanUp()
 
 	App->tex->UnLoad(graphics);
 	App->collision->EraseCollider(player_col);
-	player_col->SetPos(player_pos.x, player_pos.y);
+	//player_col->SetPos(player_pos.x, player_pos.y);
 
 	return true;
 }
-// Update: draw background
+
 //save and load
-bool j1Player::Load(pugi::xml_node& save)
-{
-	if (save.child("position") != NULL)
-	{
-		position.x = save.child("position").attribute("x").as_float();
-		position.y = save.child("position").attribute("y").as_float();
-	}
 
-	return true;
-}
 
 bool j1Player::Save(pugi::xml_node& save) const
 {
-	if (save.child("position") == NULL)
-	{
-		save.append_child("position").append_attribute("x") = position.x;
-		save.child("position").append_attribute("y") = position.y;
-	}
-	else {
-		save.child("position").attribute("x") = position.x;
-		save.child("position").attribute("y") = position.y;
-	}
+	save.append_child("position").append_attribute("x") = position.x;
+	save.child("position").append_attribute("y") = position.y;
 
 	return true;
 }
-//
+
+bool j1Player::Load(pugi::xml_node& save)
+{
+
+	position.x = save.child("position").attribute("x").as_float();
+	position.y = save.child("position").attribute("y").as_float();
+
+
+	return true;
+}
+
 void j1Player::OnCollision(Collider* c1, Collider* c2)
 {
 
