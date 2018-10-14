@@ -116,7 +116,7 @@ bool j1Player::Start()
 	speed.y = 0;
 
 
-	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,30,35 }, COLLIDER_PLAYER, this);
+	player_col = App->collision->AddCollider({(int)position.x,(int)position.y,25,4 }, COLLIDER_PLAYER, this);
 
 	current_animation = &idle;
 
@@ -208,7 +208,7 @@ bool j1Player::Update(float dt)
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
 	
 
-	player_col->SetPos(position.x, position.y);
+	player_col->SetPos(position.x, position.y + 33);
 
 	return true;
 }
@@ -216,7 +216,7 @@ bool j1Player::Update(float dt)
 bool j1Player::PostUpdate()
 {
 	
-	player_col->SetPos(position.x, position.y);
+	player_col->SetPos(position.x, position.y + 33);
 	
 	
 	
@@ -270,7 +270,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (speed.y >= 0)
 		{
-			position.y = c2->rect.y - c1->rect.h;
+			position.y = (c2->rect.y - c1->rect.h)-36;
 			speed.y = 0;
 			is_on_floor = true;
 		}

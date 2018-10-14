@@ -171,6 +171,11 @@ void j1Map::loadcollision(pugi::xml_node &node) {
 		if (checkcol == "win")
 			App->collision->AddCollider(collision, COLLIDER_WIN);
 
+		if (checkcol == "wallr")
+			App->collision->AddCollider(collision, COLLIDER_WALLRIGHT);
+
+		if (checkcol == "walll")
+			App->collision->AddCollider(collision, COLLIDER_WALLLEFT);
 	}
 }
 
