@@ -12,7 +12,7 @@ j1Collisions::j1Collisions()
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 		colliders[i] = nullptr;
 
-
+	//floor colliders
 	matrix[COLLIDER_FLOOR][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_PLAYER] = true;
@@ -20,7 +20,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_FLOOR][COLLIDER_WIN] = false;
 	matrix[COLLIDER_FLOOR][COLLIDER_WALLRIGHT] = false;
 
-
+	//death colliders
 	matrix[COLLIDER_DEATH][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_PLAYER] = true;
@@ -28,6 +28,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_DEATH][COLLIDER_WIN] = false;
 	matrix[COLLIDER_DEATH][COLLIDER_WALLRIGHT] = false;
 
+	//player colliders
 	matrix[COLLIDER_PLAYER][COLLIDER_FLOOR] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_DEATH] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_PLAYER] = false;
@@ -36,7 +37,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_PLAYER][COLLIDER_WALLRIGHT] = true;
 	matrix[COLLIDER_PLAYER][COLLIDER_WALLLEFT] = true;
 
-
+	//end colliders
 	matrix[COLLIDER_END][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_END][COLLIDER_DEATH] = false;
 	matrix[COLLIDER_END][COLLIDER_PLAYER] = true;
@@ -44,6 +45,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_END][COLLIDER_WIN] = false;
 	matrix[COLLIDER_END][COLLIDER_WALLRIGHT] = false;
 
+	//win colliders
 	matrix[COLLIDER_WIN][COLLIDER_WIN] = false;
 	matrix[COLLIDER_WIN][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_WIN][COLLIDER_DEATH] = false;
@@ -51,6 +53,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_WIN][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WIN][COLLIDER_WALLRIGHT] = false;
 
+	//rigth walls colliders
 	matrix[COLLIDER_WALLRIGHT][COLLIDER_WALLRIGHT] = false;
 	matrix[COLLIDER_WALLRIGHT][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_WALLRIGHT][COLLIDER_DEATH] = false;
@@ -58,8 +61,7 @@ j1Collisions::j1Collisions()
 	matrix[COLLIDER_WALLRIGHT][COLLIDER_PLAYER] = true;
 	matrix[COLLIDER_WALLRIGHT][COLLIDER_WALLLEFT] = true;
 
-
-
+	//left walls colliders
 	matrix[COLLIDER_WALLLEFT][COLLIDER_WIN] = false;
 	matrix[COLLIDER_WALLLEFT][COLLIDER_FLOOR] = false;
 	matrix[COLLIDER_WALLLEFT][COLLIDER_DEATH] = false;
@@ -176,8 +178,8 @@ void j1Collisions::DebugDraw()
 		case COLLIDER_WALLRIGHT://orange
 			App->render->DrawQuad(colliders[i]->rect, 255, 117, 020, alpha);
 			break;
-		case COLLIDER_WALLLEFT://black
-			App->render->DrawQuad(colliders[i]->rect, 010, 010, 010, alpha);
+		case COLLIDER_WALLLEFT://pink
+			App->render->DrawQuad(colliders[i]->rect, 255, 21, 153, alpha);
 			break;
 
 		}
@@ -248,15 +250,5 @@ bool j1Collisions::EraseCollider(Collider * collider)
 
 bool Collider::CheckCollision(const SDL_Rect& r) const
 {
-	// TODO 0: Return true if there is an overlap
-	// between argument "r" and property "rect"
-
-	//bool ret = true;
-
-	//if (r.x + r.w < rect.x) ret = false;
-	//else if (r.x > rect.x + rect.w) ret = false;
-	//else if (r.y + r.h < rect.y)ret = false;
-	//else if (r.y > rect.h + rect.y)ret = false;
-
 	return !(r.x + r.w < rect.x || r.x > rect.x + rect.w || r.y + r.h < rect.y || r.y > rect.h + rect.y);
 }

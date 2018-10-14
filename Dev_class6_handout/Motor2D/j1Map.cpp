@@ -29,14 +29,12 @@ bool j1Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+//blit
 void j1Map::Draw()
 {
 	if (map_loaded == false)
 		return;
 
-	// TODO 5(old): Prepare the loop to draw all tilesets + Blit
-	//MapLayer* layer = data.layers.start->data; // for now we just use the first layer and tileset
-	//TileSet* tileset = data.tilesets.start->data;
 	p2List_item<TileSet*>* itemtileset;
 	itemtileset = data.tilesets.end;
 	p2List_item<MapLayer*>* itemlayer;
@@ -93,14 +91,14 @@ iPoint j1Map::MapToWorld(int x, int y) const
 
 		return ret;
 	}
-	// TODO 8(old): Create a method that translates x,y coordinates from map positions to world positions
+	
 	else if (data.type == MAPTYPE_ISOMETRIC) 
 	{
 
 
 		ret.x = (x - y) * (data.tile_width * 0.5f);
 		ret.y = (x + y) * (data.tile_height * 0.5f);
-		// TODO 1: Add isometric map to world coordinates
+		
 
 		return ret;
 	}
@@ -117,21 +115,19 @@ iPoint j1Map::WorldToMap(int x, int y) const
 
 		return ret;
 	}
-	// TODO 8(old): Create a method that translates x,y coordinates from map positions to world positions
+	
 	else if (data.type == MAPTYPE_ISOMETRIC)
 	{
 
 
 		ret.x = (x - y) / (data.tile_width * 0.5f);
 		ret.y = (x + (y/2)) / (data.tile_height * 0.5f);
-		// TODO 1: Add isometric map to world coordinates
+		
 
 		return ret;
 	}
 	
-	// TODO 2: Add orthographic world to map coordinates
-
-	// TODO 3: Add the case for isometric maps to WorldToMap
+	
 	
 }
 
@@ -145,6 +141,8 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.y = margin + ((rect.h + spacing) * (relative_id / num_tiles_width));
 	return rect;
 }
+
+//Load and Add colliders
 void j1Map::loadcollision(pugi::xml_node &node) {
 
 	for (pugi::xml_node col = node.child("object"); col; col = col.next_sibling("object")) {

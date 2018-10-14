@@ -25,7 +25,6 @@ public:
 
 	bool Start();
 	bool Update(float dt);
-	bool PostUpdate();
 	bool CleanUp();
 	void OnCollision(Collider* c1, Collider* c2);
 	
@@ -41,20 +40,19 @@ public:
 	
 	fPoint position;
 	fPoint prev_pos;
+
+	//animations
 	Animation* current_animation;
 	Animation idle;
-	Animation jump_attack_right;
-	Animation jump_attack_left;
 	Animation walking_right;
 	Animation walking_left;
-	Animation attack_right;
 	Animation jump_right;
 	Animation jump_left;
-	Animation attack_left;
+	
 	Collider* player_col=nullptr;
+
 	bool destroyed = false;
 	bool is_on_floor = false;
-	bool is_in_air = false;
 	bool jumping = false;
 	bool falling = false;
 

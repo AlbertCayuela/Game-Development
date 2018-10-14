@@ -51,37 +51,6 @@ j1Player::j1Player()
 	//jump to the left
 	jump_left.PushBack({405,121,35,38});
 
-	//attack to the right
-	attack_right.PushBack({ 17,179,35,37 });
-	attack_right.PushBack({ 77,179,35,36 });
-	attack_right.PushBack({ 138,179,46,37 });
-	attack_right.PushBack({ 198,179,38,37 });
-	attack_right.speed = 0.05f;
-	attack_right.loop = false;
-
-	//attack to the left
-	attack_left.PushBack({583,173,35,37});
-	attack_left.PushBack({523,173,35,37});
-	attack_left.PushBack({451,173,46,37});
-	attack_left.PushBack({ 399,173,38,37 });
-	attack_left.speed = 0.05f;
-	attack_left.loop = false;
-
-	//attack while jumping right
-	jump_attack_right.PushBack({16,10,39,39});
-	jump_attack_right.PushBack({75,10,37,39});
-	jump_attack_right.PushBack({134,10,46,39});
-	jump_attack_right.PushBack({195,10,38,39});
-	jump_attack_right.speed = 0.1f;
-	jump_attack_right.loop = true;
-
-	//attack while jumping left
-	jump_attack_left.PushBack({ 585,11,35,37 });
-	jump_attack_left.PushBack({525,11,35,38});
-	jump_attack_left.PushBack({457,11,46,38});
-	jump_attack_left.PushBack({404,11,38,38});
-	jump_attack_left.speed = 0.05f;
-	jump_attack_left.loop = false;
 
 }
 j1Player::~j1Player()
@@ -90,7 +59,7 @@ j1Player::~j1Player()
 
 bool j1Player::Awake(pugi::xml_node& node)
 {
-	
+	//initial position
 	position.x = node.child("initial_attributes").attribute("x").as_float();
 	position.y = node.child("initial_attributes").attribute("y").as_float();
 	
@@ -126,10 +95,10 @@ bool j1Player::Update(float dt)
 	position.y += speed.y+4;
 	
 	falling = false;
-
+	
+	//movement
 	if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 	{
-		//speed.x += 3;
 		position.x += SPEED;
 		current_animation = &walking_right;
 		
@@ -140,6 +109,8 @@ bool j1Player::Update(float dt)
 		current_animation = &walking_left;
 		
 	}
+
+	//jump
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && is_on_floor==true) 
 	{
 		
@@ -164,6 +135,7 @@ bool j1Player::Update(float dt)
 
 	if(falling)current_animation = &jump_right;
 	
+	//godmode
 		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 
 			godmode = !godmode;
@@ -200,22 +172,16 @@ bool j1Player::Update(float dt)
 
 	
 	
-	
+	//charcter blit
 	App->render->Blit(graphics, position.x, position.y, &(current_animation->GetCurrentFrame()));;
 	
-
+	//collider position
 	player_col->SetPos(position.x+4, position.y + 33);
 
 	return true;
 }
 
-bool j1Player::PostUpdate()
-{
 
-	player_col->SetPos(position.x+4, position.y + 33);
-
-	return true;
-}
 
 bool j1Player::CleanUp()
 {
