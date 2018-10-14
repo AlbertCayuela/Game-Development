@@ -236,11 +236,9 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 			speed.y = 0;
 			is_on_floor = true;
 		}
-		/*if (speed.x >= 0) 
-		{
-			position.x = c2->rect.x - c2->rect.w;
-		}*/
+		player_col->SetPos(position.x, position.y);
 	}
-	
+
+
 	
 }

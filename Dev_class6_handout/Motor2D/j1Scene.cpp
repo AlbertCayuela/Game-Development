@@ -37,7 +37,7 @@ bool j1Scene::Start()
 {
 	
 
-	App->map->Load("maps/Cave_map.tmx");
+	App->map->Load("maps/dirt_map.tmx");
 	currentmap = 1;
 	
 	
@@ -61,7 +61,7 @@ bool j1Scene::Update(float dt)
 	if(App->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		App->SaveGame();
 
-	if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
+	/*if (App->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) {
 
 		if (currentmap == App->player->saved_map)
 			App->LoadGame();
@@ -93,7 +93,7 @@ bool j1Scene::Update(float dt)
 			}
 		}
 
-	}
+	}*/
 	if (App->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		App->SaveGame();
 
