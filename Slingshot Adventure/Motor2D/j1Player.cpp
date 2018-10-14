@@ -229,7 +229,7 @@ void j1Player::OnCollision(Collider* c1, Collider* c2)
 	//collision between player and left_collider
 	if (c1->type == COLLIDER_PLAYER && c2->type == COLLIDER_WALLLEFT) 
 	{
-		position.x = (c2->rect.x - c1->rect.w);
+		position.x = (c2->rect.x - (c1->rect.w+10));
 		speed.x = 0;
 	}
 	

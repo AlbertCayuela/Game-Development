@@ -92,7 +92,8 @@ bool j1Scene::Update(float dt)
 			App->player->Enable();
 			App->player->position.x = 50.f;
 			App->player->position.y = 600.f;
-			currentmap = 2;
+
+			currentmap = 1;
 			
 			
 		}
