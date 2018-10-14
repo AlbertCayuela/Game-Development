@@ -1,10 +1,10 @@
-#Slingshot Adventure
+﻿# Slingshot Adventure
 
 This is a little game made by two students of the Videogame Desing and Develompent degree. It is a small plataformer with two levels, where the player can move right, left and jump.
 The game has been made using C++, SDL and pugi libraries. 
 The maps have been made using tiled as the colliders.
 
- ##Controls
+ ## Controls
  
 Movement with arrow keys:
 
@@ -20,7 +20,7 @@ F6: Load the previous state (even across levels)
 F9: To view colliders / logic 
 F10: God Mode
  
- ##Autors
+ ## Autors
  
  Aleix Castillo Arrià
  GitHub Username: AleixCas95
@@ -28,11 +28,11 @@ F10: God Mode
  Albert Cayuela Naval
  GitHub Username: AlbertCayuela
  
- ##Github Repository
+ ## Github Repository
  
  https://github.com/AlbertCayuela/Game-Development
  
- ##Disclosure
+ ## Disclosure
  
  Sprites:
  
@@ -49,7 +49,7 @@ https://opengameart.org/content/generic-platformer-tileset-16x16-background
 Author: CodeManu from the website:
 https://opengameart.org/content/platformer-game-music-pack
 
- ###License
+ ### License
  
  MIT License
  
