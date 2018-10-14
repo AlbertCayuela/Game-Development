@@ -95,6 +95,8 @@ bool j1Player::Update(float dt)
 
 	position.x += speed.x;
 	position.y += speed.y+constant_y_speed;
+
+	
 	
 	falling = false;
 	
@@ -138,13 +140,11 @@ bool j1Player::Update(float dt)
 	if(falling)current_animation = &jump_right;
 	
 	//godmode
-		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-
-			godmode = !godmode;
-		}
+		if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && (godmode==false))godmode=true;
+		else if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN && godmode)godmode = false;
 		if (godmode) {
 
-			constant_y_speed = 0;
+		
 
 			if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			{
@@ -162,18 +162,21 @@ bool j1Player::Update(float dt)
 			if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			{
 				
-				position.y += SPEED;
+				position.y -= SPEED;
 				current_animation = &jump_right;
 
 			}
 			if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
 			{
-				position.y -= SPEED;
+				position.y += SPEED;
 				current_animation = &jump_right;
 
 			}
 
 		}
+
+		if (!godmode)constant_y_speed = 4;
+		else if (godmode)constant_y_speed = 0;
 
 	
 	
